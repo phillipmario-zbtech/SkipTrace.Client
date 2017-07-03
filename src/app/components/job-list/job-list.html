@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <input type="text" class="form-control" id="jobName" placeholder="Enter Job's Name" ng-model="vm.job.jobName">
+  </div>
+
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <button type="button" class="btn btn-large btn-block btn-success" ng-disabled="!vm.canAdd()" ng-click="vm.addJob()">Add Job</button>
+  </div>
+</div>
+<div class="row">
+  <ul>
+    <li ng-repeat="job in vm.jobs track by $index">{{job.jobName}}
+
+      <button type="button" class="close pull-right" data-dismiss="modal" ng-disabled="!vm.canDelete()" ng-click="vm.deleteJob(job)"
+        uib-tooltip="Delete this Job">×</button>
+    </li>
+  </ul>
+</div>

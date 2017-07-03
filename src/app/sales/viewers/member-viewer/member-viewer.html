@@ -1,0 +1,106 @@
+<div class="container-fluid well">
+  <div class="media">
+    <a class="pull-left" href="#"></a>
+    <div class="media-body">
+      <h3> Member :
+        <span class="text-primary"> {{vm.banner.title}} </span>  
+  
+      </h3>
+      <p> <span class="text-muted">{{vm.banner.content}}</span></p>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Company Info
+          </h3>
+        </div>
+        <div class="panel-body">
+
+          <member-summary-view member="vm.member"></member-summary-view>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Addresses
+          </h3>
+        </div>
+        <div class="panel-body fixed-panel">
+          <member-addresses-viewer addresses="vm.member.memberAddresses"></member-addresses-viewer>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Keymen
+          </h3>
+        </div>
+        <div class="panel-body">
+          <member-associates-viewer associates="vm.member.associates"></member-associates-viewer>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="row">
+    <div class="col-md-8">
+
+
+
+
+      <div class="row">
+        <div class="col-md-6">
+
+        </div>
+
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Subscriptions
+          </h3>
+        </div>
+        <div class="panel-body">
+          <member-subscriptions-viewer subscriptions="vm.member.subscriptions"></member-subscriptions-viewer>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Statements
+          </h3>
+        </div>
+        <div class="panel-body">
+          <member-statements-viewer statements="vm.member.statements"></member-addresses-viewer>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            Debts
+          </h3>
+        </div>
+        <div class="panel-body fixed-panel">
+          <member-debts-viewer debts="vm.member.debts" viewDetails="vm.viewDetails()"></member-debts-viewer>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

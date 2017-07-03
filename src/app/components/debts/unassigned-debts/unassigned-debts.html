@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+
+      <!--loader-->
+      <div class="panel-body" ng-hide="vm.status.loaded">
+        <div class="text-center">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+          <h5>loading {{vm.title}}...</h5>
+        </div>
+      </div>
+      <!--filters-->
+      <div class="panel-body fixed-panel" ng-show="vm.status.loaded">
+
+        <div class="table-responsive">
+          <table class="table table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>Debt #</th>
+                <th>Debtor</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="debt in vm.ls.unassignedDebts">
+                <td>{{debt.id}}</td>
+                <td>{{debt.debtorName}}</td>
+                <td>
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true" uib-tooltip="Assign this Debt to a Collector"
+                    ng-click="vm.assignDebtToCollector(debt)"><span class="glyphicon glyphicon-open-file"></span>&nbsp;</button>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>

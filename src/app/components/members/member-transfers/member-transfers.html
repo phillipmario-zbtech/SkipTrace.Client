@@ -1,0 +1,48 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <h4>Member Transfers</h4>
+    <p> Select one or multiple members/customers to transfer to another agent/sales representative</p>
+    <br>
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="input-group">
+          <select name="sourceAgent" id="inputSourceAgent" class="form-control" required="required" ng-model="vm.sourceAgent" ng-options="agent.id as agent.name for agent in vm.sourceAgents">  
+            <option value="" disabled selected>Select Source Agent</option>
+        </select>
+          <span class="input-group-btn"><button type="button" ng-click="vm.getAgentMembers()" class="btn btn-warning">Load Members</button></span>
+        </div>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="input-group">
+          <select name="targetAgent" id="inputTargetAgent" class="form-control" required="required" ng-model="vm.targetAgent" ng-options="agent.id as agent.name for agent in vm.targetAgents">  
+<option value="" disabled selected>Select Target Agent</option> 
+</select>
+          <span class="input-group-btn"><button type="button"  ng-click="vm.reassignMembers()" ng-disabled="!vm.isChecked()" class="btn btn-primary">Transfer</button></span>
+        </div>
+      </div>
+    </div>
+<br>  
+
+    <div class="panel panel-default">
+      <div class="panel-body fixed-panel"> 
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <br>
+            <input type="checkbox" ng-click="vm.toggleAll()" ng-model="vm.isAllSelected"> <strong>Select all</strong>
+            <br>
+            <div class="checkbox" ng-repeat="member in vm.members">
+              <label><input type="checkbox" ng-model="member.selected" ng-change="vm.optionToggled()"><span>{{member.memberName}}</span></label>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+
+  </div>
+</div>

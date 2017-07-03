@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title pull-left">
+          <i class="fa fa-gear" aria-hidden="true"> </i>&nbsp;Membership Renewal
+        </h3>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="cashDateRange" class="col-sm-5 control-label">
+			 Renewal Dates
+					</label>
+            <div class="col-sm-7">
+              <input date-range-picker class="form-control date-picker" type="text" ng-model="vm.renewalDate" id="renewalDateRange" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-large btn-block btn-warning" ng-click="vm.processRenewableMembers()" ng-show="vm.guardSvc.authorized(['Administrators', 'Managing Directors', 'Processing Clerks'])">Run Processing</button>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Renewal Notices</h3>
+      </div>
+      <div class="panel-body">
+
+      </div>
+    </div>
+
+  </div>
+</div>

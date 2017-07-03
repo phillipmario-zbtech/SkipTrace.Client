@@ -1,0 +1,315 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+
+  <p>Please enter payment/receipt details</p>
+  <form ng-submit="vm.ok();vm.resetForm();" name="vm.paymentform" class="form-horizontal" role="form" novalidate>
+    <fieldset>
+      <legend>Payment Details:</legend>
+      <div class="form-group" id="classification-group" name="classification-group" ng-class="{ 'has-error': (vm.paymentform.receiptNo.$touched && vm.paymentform.receiptNo.$invalid) || (vm.paymentform.paymentMethod.$touched && vm.paymentform.paymentMethod.$invalid) || (vm.paymentform.transactionType.$touched && vm.paymentform.transactionType.$invalid) }"
+        ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Payment Info</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <input type="text" id="receiptNo" name="receiptNo" data-ng-model="vm.payment.receiptNo" ng-minlength="2" ng-maxlength="10"
+                required class="text-primary form-control" ng-attr-placeholder="{{vm.receiptNo}}" validate-on="blur" clear-on="focus"
+              />
+              <div ng-messages="vm.paymentform.receiptNo.$error" ng-show="vm.paymentform.receiptNo.$touched && vm.paymentform.receiptNo.$invalid"
+                class="help-block">
+                <div ng-message="required">Receipt No is required.</div>
+                <div ng-message="minlength">Your value for Receipt No is too short</div>
+                <div ng-message="maxlength">Your value for Receipt No is too long</div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <input type="date" id="paymentDate" name="paymentDate" data-ng-model="vm.payment.paymentDate" required class="text-primary form-control"
+                placeholder="Payment Date" validate-on="blur" clear-on="focus" />
+
+              <div ng-messages="vm.paymentform.paymentDate.$error" ng-show="vm.paymentform.paymentDate.$touched && vm.paymentform.paymentDate.$invalid"
+                class="help-block">
+                <div ng-message="required">Payment Date is required.</div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <select id="paymentMethod" name="paymentMethod" class="form-control" required data-ng-model="vm.payment.paymentMethod" ng-change="vm.checkIsCheque()"
+                data-ng-options="paymentMethod.key as paymentMethod.value for paymentMethod in vm.paymentMethods">
+ <option value="" disabled selected>Select Payment Method</option> 
+								</select>
+              <div ng-messages="vm.paymentform.paymentMethod.$error" ng-show="vm.paymentform.paymentMethod.$touched && vm.paymentform.paymentMethod.$invalid"
+                class="help-block">
+                <div ng-message="required">Payment Method is Required</div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <select id="transactionType" name="transactionType" class="form-control" required data-ng-model="vm.payment.transactionType"
+                data-ng-options="transactionType.key as transactionType.value for transactionType in vm.transactionTypes">
+ <option value="" disabled selected>Select Transaction Type</option> 
+								</select>
+              <div ng-messages="vm.paymentform.transactionType.$error" ng-show="vm.paymentform.transactionType.$touched && vm.paymentform.transactionType.$invalid"
+                class="help-block">
+                <div ng-message="required">Transaction Type is Required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group" id="amounts-group" name="amounts-group" ng-class="{ 'has-error': (vm.paymentform.receiptNo.$touched && vm.paymentform.receiptNo.$invalid) || 
+      (vm.paymentform.amount.$touched && vm.paymentform.amount.$invalid) || 
+       (vm.paymentform.currencyId.$touched && vm.paymentform.currencyId.$invalid) || 
+       (vm.paymentform.agentId.$touched && vm.paymentform.agentId.$invalid) 
+      }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Transaction Details</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="text" id="amount" name="amount" required data-ng-model="vm.payment.amount" class="text-primary form-control"
+                  placeholder="Amount" ng-model-options="{ debounce: 500 }" ng-change="vm.getCharges()" />
+              </div>
+              <div ng-messages="vm.paymentform.amount.$error" ng-show="vm.paymentform.amount.$touched && vm.paymentform.amount.$invalid"
+                class="help-block">
+                <div ng-message="required">Payment Amount is required.</div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <select id="currencyId" name="currencyId" class="form-control" required data-ng-model="vm.payment.currencyId" data-ng-options="currency.id as currency.name for currency in vm.currencys">
+ <option value="" disabled selected>Select Currency</option> 
+								</select>
+              <div ng-messages="vm.paymentform.currencyId.$error" ng-show="vm.paymentform.currencyId.$touched && vm.paymentform.currencyId.$invalid"
+                class="help-block">
+                <div ng-message="required">Currency is Required</div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <select id="agentId" name="agentId" class="form-control" required data-ng-model="vm.payment.agentId" data-ng-options="agent.id as agent.name for agent in vm.agents">
+ <option value="" disabled selected>Select Agent</option> 
+								</select>
+              <div ng-messages="vm.paymentform.agentId.$error" ng-show="vm.paymentform.agentId.$touched && vm.paymentform.agentId.$invalid"
+                class="help-block">
+                <div ng-message="required">Agent is Required</div>
+              </div>
+            </div>
+            <!-- /.col-lg-6 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+
+
+      <div class="form-group" id="charges-group" name="charges-group" ng-class="{ 'has-error': (vm.paymentform.administrativeFee.$touched && vm.paymentform.administrativeFee.$invalid) ||
+ (vm.paymentform.legalFee.$touched && vm.paymentform.legalFee.$invalid) || 
+ (vm.paymentform.interest.$touched && vm.paymentform.interest.$invalid) ||
+ (vm.paymentform.tax.$touched && vm.paymentform.tax.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Charges</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <input type="text" id="administrativeFee" name="administrativeFee" ng-currency data-ng-model="vm.payment.administrativeFee"
+                class="text-primary form-control" placeholder="Administrative Fees" />
+              <div ng-messages="vm.paymentform.administrativeFee.$error" ng-show="vm.paymentform.administrativeFee.$touched && vm.paymentform.administrativeFee.$invalid"
+                class="help-block">
+                <div ng-message="required">Administrative Fee is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="legalFee" name="legalFee" ng-currency data-ng-model="vm.payment.legalFee" class="text-primary form-control"
+                placeholder="Legal Fees" />
+              <div ng-messages="vm.paymentform.legalFee.$error" ng-show="vm.paymentform.legalFee.$touched && vm.paymentform.legalFee.$invalid"
+                class="help-block">
+                <div ng-message="required">Legal Fee is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="interest" name="interest" ng-currency data-ng-model="vm.payment.interest" class="text-primary form-control"
+                placeholder="Interest" />
+              <div ng-messages="vm.paymentform.interest.$error" ng-show="vm.paymentform.interest.$touched && vm.paymentform.interest.$invalid"
+                class="help-block">
+                <div ng-message="required">Interest is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="tax" name="tax" ng-currency data-ng-model="vm.payment.tax" class="text-primary form-control" placeholder="Tax"
+              />
+              <div ng-messages="vm.paymentform.tax.$error" ng-show="vm.paymentform.tax.$touched && vm.paymentform.tax.$invalid" class="help-block">
+                <div ng-message="required">Tax is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+
+      <div class="form-group" id="payCharges-group" name="payCharges-group" ng-class="{ 'has-error': (vm.paymentform.commission.$touched && vm.paymentform.commission.$invalid) || (vm.paymentform.gross.$touched && vm.paymentform.gross.$invalid) }"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3"> </div>
+            <div class="col-lg-3"> </div>
+            <div class="col-lg-3">
+              <input type="text" id="commission" name="commission" ng-currency data-ng-model="vm.payment.commission" class="text-primary form-control"
+                placeholder="Commission" />
+              <div ng-messages="vm.paymentform.commission.$error" ng-show="vm.paymentform.commission.$touched && vm.paymentform.commission.$invalid"
+                class="help-block">
+                <div ng-message="required">Commission is required.</div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <input type="text" id="gross" name="gross" ng-currency data-ng-model="vm.payment.gross" class="text-primary form-control"
+                placeholder="Gross" />
+              <div ng-messages="vm.paymentform.gross.$error" ng-show="vm.paymentform.gross.$touched && vm.paymentform.gross.$invalid" class="help-block">
+                <div ng-message="required">Gross is required.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group" id="chequeDetails-group" name="chequeDetails-group" ng-show="vm.isCheque" ng-class="{ 'has-error': (vm.paymentform.referenceNo.$touched && vm.paymentform.referenceNo.$invalid) ||
+ (vm.paymentform.accountNo.$touched && vm.paymentform.accountNo.$invalid) || 
+ (vm.paymentform.institution.$touched && vm.paymentform.institution.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Cheque Details</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="input-group">
+                <input type="text" id="referenceNo" name="referenceNo" data-ng-model="vm.payment.referenceNo" class="text-primary form-control"
+                  placeholder="Cheque No" />
+                <span class="input-group-addon">
+ <input type="checkbox" ng-model="vm.payment.personalCheque">
+ </span>
+              </div>
+              <div ng-messages="vm.paymentform.referenceNo.$error" ng-show="vm.paymentform.referenceNo.$touched && vm.paymentform.referenceNo.$invalid"
+                class="help-block">
+                <div ng-message="required">Cheque Number this is required.</div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <input type="text" id="accountNo" name="accountNo" data-ng-model="vm.payment.accountNo" class="text-primary form-control"
+                placeholder="Account No" />
+              <div ng-messages="vm.paymentform.accountNo.$error" ng-if="vm.paymentform.accountNo.$touched && vm.paymentform.accountNo.$invalid"
+                class="help-block">
+                <div ng-message="required">Account Number this is required.</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <input type="text" id="institution" name="institution" data-ng-model="vm.payment.institution" class="text-primary form-control"
+                placeholder="Financial Institution" />
+              <div ng-messages="vm.paymentform.institution.$error" ng-if="vm.paymentform.institution.$touched && vm.paymentform.institution.$invalid"
+                class="help-block">
+                <div ng-message="required">Legal Fee is required.</div>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group" id="payorDetails-group" name="payorDetails-group" ng-show="vm.isCheque" ng-class="{ 'has-error': (vm.paymentform.receivedFrom.$touched && vm.paymentform.receivedFrom.$invalid) ||
+ (vm.paymentform.receivedFromAddress.$touched && vm.paymentform.receivedFromAddress.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Payor Details</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-4">
+              <input type="text" id=" receivedFrom" name=" receivedFrom" data-ng-model="vm.payment. receivedFrom" class="text-primary form-control"
+                placeholder="Received From" />
+
+              <div ng-messages="vm.paymentform.receivedFrom.$error" ng-show="vm.paymentform.receivedFrom.$touched && vm.paymentform.receivedFrom.$invalid"
+                class="help-block">
+                <div ng-message="required">Received from is required.</div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-8">
+              <input type="text" id=" receivedFromAddress" name=" receivedFromAddress" data-ng-model="vm.payment. receivedFromAddress"
+                class="text-primary form-control" placeholder="Received from Address" />
+              <div ng-messages="vm.paymentform.receivedFromAddress.$error" ng-show="vm.paymentform.receivedFromAddress.$touched && vm.paymentform.receivedFromAddress.$invalid"
+                class="help-block">
+                <div ng-message="required">Received From Address is required.</div>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+
+
+
+
+    </fieldset>
+
+
+     
+      <div class="form-group" id="notes-group" name="notes-group" ng-class="{ 'has-error': vm.paymentform.notes.$touched && vm.paymentform.notes.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="notes" class="col-sm-3 control-label" uib-tooltip="Tooltip For Notes">Notes</label>
+
+        <div class="col-sm-9">
+          <textarea id="notes" name="notes" data-ng-model="vm.payment.notes" class="text-primary form-control" cols="8" rows="3" placeholder="Notes"></textarea>
+
+          <div ng-messages="vm.paymentform.notes.$error" ng-show="vm.paymentform.notes.$touched" class="help-block">
+            <div ng-message="required">Notes is required.</div>
+            <div ng-message="minlength">Your value for Notes is too short</div>
+            <div ng-message="maxlength">Your value for Notes is too long</div>
+          </div>
+        </div>
+      </div>
+ 
+  
+      <div class="form-group" id="subscriptionId-group" name="subscriptionId-group" ng-class="{ 'has-error': vm.paymentform.subscriptionId.$touched && vm.paymentform.subscriptionId.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="subscriptionId" class="col-sm-3 control-label" uib-tooltip="Tooltip For SubscriptionId">SubscriptionId</label>
+
+        <div class="col-sm-9">
+
+          <select id="subscriptionId" name="subscriptionId" class="form-control" required="required" data-ng-model="vm.payment.subscription"
+            data-ng-options="p.subscriptionName for p in vm.subscriptions">
+								</select>
+
+
+
+          <div ng-messages="vm.paymentform.subscriptionId.$error" ng-show="vm.paymentform.subscriptionId.$touched" class="help-block">
+            <div ng-message="required">SubscriptionId is required.</div>
+            <div ng-message="minlength">Your value for SubscriptionId is too short</div>
+            <div ng-message="maxlength">Your value for SubscriptionId is too long</div>
+          </div>
+        </div>
+      </div>
+ 
+     
+   
+       
+    </form>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-md btn-primary" ng-click="vm.ok()" ng-disabled=!vm.paymentform.$valid value="Save Payment">Submit</button>
+  <button type="button" class="btn btn-md btn-warning" ng-click="vm.cancel()" value="Cancel Payment">Cancel</button>
+</div>

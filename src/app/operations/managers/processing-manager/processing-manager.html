@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title pull-left">
+          <i class="fa fa-gear" aria-hidden="true"> </i>&nbsp;Billing Processing Parameters
+        </h3>
+        <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="cashDateRange" class="col-sm-5 control-label">
+						Cash Dates
+					</label>
+            <div class="col-sm-7">
+              <input date-range-picker class="form-control date-picker" type="text" ng-model="vm.cashDate" id="cashDateRange" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="nonCashDateRange" class="col-sm-5 control-label">
+					 Non Cash Dates
+					</label>
+            <div class="col-sm-7">
+              <input date-range-picker class="form-control date-picker" type="text" ng-model="vm.noncashDate" id="nonCashDateRange" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-large btn-block btn-warning" ng-click="vm.processBilling()" ng-show="vm.guardSvc.authorized(['Administrators', 'Managing Directors', 'Processing Clerks'])">Run Processing</button>
+            </div>
+          </div>
+        </form>
+        <div class="panel-body">
+          <!-- ng-show="vm.status.loaded">-->
+          <statement-filter available-filters="vm.options.selectableFilters" query="vm.query">
+            </member-filter>
+            <!--authrized debug only-->
+            <h5>query:</h5>
+            <pre ng-show="vm.guardSvc.authorized(['Users'])">{{vm.query | json}}</pre>
+        </div>
+
+      </div>
+    </div>
+
+
+
+  </div>
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Processing Results</h3>
+          </div>
+          <div class="panel-body">
+            Statements
+            <statement-list-viewer statements="vm.statements"></statement-list-viewer>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

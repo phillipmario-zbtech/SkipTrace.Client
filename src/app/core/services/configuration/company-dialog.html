@@ -1,0 +1,143 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+  <form ng-submit="vm.ok();vm.resetForm();" name="vm.companyform" class="form-horizontal" role="form" novalidate>
+    <div class="form-group" id="companyName-group" name="companyName-group" ng-class="{ 'has-error': vm.companyform.companyName.$touched && vm.companyform.companyName.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="companyName" class="col-sm-3 control-label" uib-tooltip="Tooltip For CompanyName">CompanyName</label>
+
+      <div class="col-sm-9">
+
+        <div class="input-group">
+          <input type="text" id="companyName" name="companyName" data-ng-model="vm.company.companyName" ng-minlength="2" ng-maxlength="10"
+            required class="text-primary form-control" placeholder="CompanyName" validate-on="blur" clear-on="focus" />
+          <div ng-messages="vm.companyform.companyName.$error" ng-show="vm.companyform.companyName.$touched" class="help-block">
+            <div ng-message="required">CompanyName is required.</div>
+            <div ng-message="minlength">Your value for CompanyName is too short</div>
+            <div ng-message="maxlength">Your value for CompanyName is too long</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" id="operatingCountryId-group" name="operatingCountryId-group" ng-class="{ 'has-error': vm.companyform.operatingCountryId.$touched && vm.companyform.operatingCountryId.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="operatingCountryId" class="col-sm-3 control-label" uib-tooltip="Tooltip For OperatingCountryId">OperatingCountryId</label>
+
+      <div class="col-sm-9">
+
+        <div class="input-group">
+          <div class="input-group">
+            <select id="operatingCountryId" name="operatingCountryId" class="form-control" required="required" data-ng-model="vm.company.dedacountryname"
+              data-ng-options="p.dedacountrynameName for p in vm.dedacountrynames">
+								</select>
+          </div>
+
+          <div ng-messages="vm.companyform.operatingCountryId.$error" ng-show="vm.companyform.operatingCountryId.$touched" class="help-block">
+            <div ng-message="required">OperatingCountryId is required.</div>
+            <div ng-message="minlength">Your value for OperatingCountryId is too short</div>
+            <div ng-message="maxlength">Your value for OperatingCountryId is too long</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" id="taxRegistrationNo-group" name="taxRegistrationNo-group" ng-class="{ 'has-error': vm.companyform.taxRegistrationNo.$touched && vm.companyform.taxRegistrationNo.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="taxRegistrationNo" class="col-sm-3 control-label" uib-tooltip="Tooltip For TaxRegistrationNo">TaxRegistrationNo</label>
+
+      <div class="col-sm-9">
+
+        <div class="input-group">
+          <input type="text" id="taxRegistrationNo" name="taxRegistrationNo" data-ng-model="vm.company.taxRegistrationNo" ng-minlength="2"
+            ng-maxlength="10" required class="text-primary form-control" placeholder="TaxRegistrationNo" validate-on="blur"
+            clear-on="focus" />
+          <div ng-messages="vm.companyform.taxRegistrationNo.$error" ng-show="vm.companyform.taxRegistrationNo.$touched" class="help-block">
+            <div ng-message="required">TaxRegistrationNo is required.</div>
+            <div ng-message="minlength">Your value for TaxRegistrationNo is too short</div>
+            <div ng-message="maxlength">Your value for TaxRegistrationNo is too long</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" id="mailingStreet-group" name="mailingStreet-group" ng-class="{ 'has-error': vm.companyform.mailingStreet.$touched && vm.companyform.mailingStreet.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="mailingStreet" class="col-sm-3 control-label" uib-tooltip="Tooltip For MailingStreet">MailingStreet</label>
+
+      <div class="col-sm-9">
+
+        <div class="input-group">
+          <input type="text" id="mailingStreet" name="mailingStreet" data-ng-model="vm.company.mailingStreet" ng-minlength="2" ng-maxlength="10"
+            required class="text-primary form-control" placeholder="MailingStreet" validate-on="blur" clear-on="focus" />
+          <div ng-messages="vm.companyform.mailingStreet.$error" ng-show="vm.companyform.mailingStreet.$touched" class="help-block">
+            <div ng-message="required">MailingStreet is required.</div>
+            <div ng-message="minlength">Your value for MailingStreet is too short</div>
+            <div ng-message="maxlength">Your value for MailingStreet is too long</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" id="mailingCity-group" name="mailingCity-group" ng-class="{ 'has-error': vm.companyform.mailingCity.$touched && vm.companyform.mailingCity.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="mailingCity" class="col-sm-3 control-label" uib-tooltip="Tooltip For MailingCity">MailingCity</label>
+
+      <div class="col-sm-9">
+
+        <div class="input-group">
+          <input type="text" id="mailingCity" name="mailingCity" data-ng-model="vm.company.mailingCity" ng-minlength="2" ng-maxlength="10"
+            required class="text-primary form-control" placeholder="MailingCity" validate-on="blur" clear-on="focus" />
+          <div ng-messages="vm.companyform.mailingCity.$error" ng-show="vm.companyform.mailingCity.$touched" class="help-block">
+            <div ng-message="required">MailingCity is required.</div>
+            <div ng-message="minlength">Your value for MailingCity is too short</div>
+            <div ng-message="maxlength">Your value for MailingCity is too long</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" id="mailingZoneId-group" name="mailingZoneId-group" ng-class="{ 'has-error': vm.companyform.mailingZoneId.$touched && vm.companyform.mailingZoneId.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="mailingZoneId" class="col-sm-3 control-label" uib-tooltip="Tooltip For MailingZoneId">MailingZoneId</label>
+
+      <div class="col-sm-9">
+
+        <div class="input-group">
+          <input type="number" min="0" step="1" id="mailingZoneId" name="mailingZoneId" data-ng-model="vm.company.mailingZoneId" class="text-primary form-control"
+            placeholder="MailingZoneId" />
+          <div ng-messages="vm.companyform.mailingZoneId.$error" ng-show="vm.companyform.mailingZoneId.$touched" class="help-block">
+            <div ng-message="required">MailingZoneId is required.</div>
+            <div ng-message="minlength">Your value for MailingZoneId is too short</div>
+            <div ng-message="maxlength">Your value for MailingZoneId is too long</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" id="mailingCountryId-group" name="mailingCountryId-group" ng-class="{ 'has-error': vm.companyform.mailingCountryId.$touched && vm.companyform.mailingCountryId.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="mailingCountryId" class="col-sm-3 control-label" uib-tooltip="Tooltip For MailingCountryId">MailingCountryId</label>
+
+      <div class="col-sm-9">
+
+        <div class="input-group">
+          <div class="input-group">
+            <select id="mailingCountryId" name="mailingCountryId" class="form-control" required="required" data-ng-model="vm.company.dedacountryname"
+              data-ng-options="p.dedacountrynameName for p in vm.dedacountrynames">
+								</select>
+          </div>
+
+          <div ng-messages="vm.companyform.mailingCountryId.$error" ng-show="vm.companyform.mailingCountryId.$touched" class="help-block">
+            <div ng-message="required">MailingCountryId is required.</div>
+            <div ng-message="minlength">Your value for MailingCountryId is too short</div>
+            <div ng-message="maxlength">Your value for MailingCountryId is too long</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-md btn-primary" ng-click="vm.ok()" value="Save Company">Ok</button>
+  <button type="button" class="btn btn-md btn-warning" ng-click="vm.cancel()" value="Cancel Company">Cancel</button>
+</div>
+<!--ng-disabled=!vm.companyform.$valid-->

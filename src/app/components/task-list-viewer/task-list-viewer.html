@@ -1,0 +1,17 @@
+<form ng-submit="vm.taskAdd()">
+	<div class="input-group">
+ 
+		<input type="text" class="form-control" id="taskDescription" ng-model="vm.taskDescription" placeholder="What Do you Have to do?">
+		<div class="input-group-btn">
+			<button class="btn btn-info" type="submit" ng-disabled="!vm.taskDescription" ><i class="glyphicon glyphicon-plus"></i></button>
+		</div>
+	</div>
+</form> 
+<br>
+<div class="checkbox" ng-repeat="task in vm.taskList">
+	<label>
+		<input type="checkbox" ng-model="task.completed"> <span ng-bind="task.taskDescription"></span>
+ 
+	</label>
+</div> 
+<p><button type="button" class="btn btn-xs btn-danger" ng-disabled="!vm.taskList.length>0" ng-click="vm.remove()">Remove Completed</button></p>

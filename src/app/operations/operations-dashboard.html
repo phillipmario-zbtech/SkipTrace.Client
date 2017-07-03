@@ -1,0 +1,113 @@
+<div class="row">
+  <uib-tabset active="0" type="tabs" vertical="false" justified="false">
+    <uib-tab heading="Membership" index="0" disable="!vm.guardSvc.authorized(['Operations Users','Operations Clerks','Operations Suprvisors'])">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-home"></i> <strong>Membership</strong>
+      </uib-tab-heading>
+      <div class="container-fluid">
+        <br>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-warning">
+              <div class="panel-heading">
+                <h3 class="panel-title pull-left">
+                  <i class="fa fa-book" aria-hidden="true"> </i>&nbsp;<strong>Active Members</strong>
+                </h3>
+                <div class="clearfix"></div>
+              </div>
+
+              <div class="panel-body">
+                <operations-member-manager></operations-member-manager>
+              </div>
+            </div>
+
+            <div class="panel panel-warning">
+              <div class="panel-heading">
+                <h3 class="panel-title pull-left">
+                  <i class="fa fa-folder-open" aria-hidden="true"> </i>&nbsp;<strong>Renewal Notices</strong>
+                </h3>
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <renewal-notices></renewal-notices>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </uib-tab>
+
+    <uib-tab heading="Financials" index="1" disable="!vm.guardSvc.authorized(['Operations Users','Operations Clerks','Operations Suprvisors'])">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-shopping-cart"></i> <strong>Financials</strong>
+      </uib-tab-heading>
+      <div class="container-fluid">
+        <br>
+        <financials-manager></financials-manager>
+      </div>
+    </uib-tab>
+    <uib-tab heading="Billing" index="2" disable="!vm.guardSvc.authorized(['Operations Users','Operations Clerks','Operations Suprvisors'])">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-open-file"></i> <strong>Billing/Processing</strong>
+      </uib-tab-heading>
+      <div class="container-fluid">
+        <br>
+        <processing-manager></processing-manager>
+      </div>
+    </uib-tab>
+    <uib-tab heading="Transfers" index="3" disable="!vm.guardSvc.authorized(['Operations Users','Operations Clerks','Operations Suprvisors'])">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-transfer"></i> <strong>Transfers/Reassignments</strong>
+      </uib-tab-heading>
+      <div class="container-fluid">
+        <br>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <debt-transfer-manager></debt-transfer-manager>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <member-transfer-manager></member-transfer-manager>
+          </div>
+        </div>
+      </div>
+    </uib-tab>
+    <uib-tab heading="Renewals" index="4" disable="!vm.guardSvc.authorized(['Operations Users','Operations Clerks','Operations Suprvisors'])">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-repeat"></i> <strong>Renewals</strong>
+      </uib-tab-heading>
+      <div class="container-fluid">
+        <br>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <renewals-manager></renewals-manager>
+          </div>
+        </div>
+
+      </div>
+    </uib-tab>
+    <uib-tab heading="Reports" index="5" disable="!vm.guardSvc.authorized(['Operations Users','Operations Clerks', 'Operations Suprvisors'])">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-list-alt"></i> <strong>Reporting</strong>
+      </uib-tab-heading>
+      <br>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <reports-manager></reports-manager>
+        </div>
+      </div>
+    </uib-tab>
+
+    <uib-tab heading="Files" index="6" disable="!vm.guardSvc.authorized(['Operations Users','Operations Clerks', 'Operations Suprvisors'])">
+      <uib-tab-heading>
+        <i class="glyphicon glyphicon-folder-open"></i> <strong>File/Backups</strong>
+      </uib-tab-heading>
+      <br>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <file-manager></file-manager>
+        </div>
+      </div>
+    </uib-tab>
+  </uib-tabset>
+</div>

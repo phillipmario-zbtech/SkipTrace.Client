@@ -1,0 +1,154 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+  <form ng-submit="vm.ok();vm.resetForm();" name="vm.agreementform" class="form-horizontal" role="form" novalidate>
+
+
+
+
+    <fieldset>
+      <legend>Financial Details:</legend>
+      <div class="form-group" id="amounts-group" name="amounts-group" ng-class="{ 'has-error': (vm.agreementform.collectorId.$touched && vm.agreementform.collectorId.$invalid) || (vm.agreementform.settlement.$touched && vm.agreementform.settlement.$invalid)}"
+        ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Agrement Details</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-6">
+              <select id="collectorId" name="collectorId" class="form-control" required data-ng-model="vm.payment.collectorId" data-ng-options="collector.id as collector.name for collector in vm.collectors">
+ <option value="" disabled selected>Select Negotiating Collector</option> 
+								</select>
+              <div ng-messages="vm.paymentform.collectorId.$error" ng-show="vm.paymentform.collectorId.$touched && vm.paymentform.collectorId.$invalid"
+                class="help-block">
+                <div ng-message="required">Collector is Required</div>
+              </div>
+            </div>
+            <!-- /.col-lg-6 -->
+            <div class="col-lg-6">
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="text" id="settlement" name="settlement" required ng-currency data-ng-model="vm.agreement.settlement" class="text-primary form-control"
+                  placeholder="Settlement Amount" ng-model-options="{ debounce: 500 }" ng-change="vm.getCharges()" />
+                <span class="input-group-btn"> <button type="button" class="btn btn-success">Charges</button> </span>
+              </div>
+              <div ng-messages="vm.agreementform.settlement.$error" ng-show="vm.agreementform.settlement.$touched && vm.agreementform.settlement.$invalid"
+                class="help-block">
+                <div ng-message="required">Settlement Amount is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-6 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <div class="form-group" id="charges-group" name="charges-group" ng-class="{ 'has-error': (vm.agreementform.administrativeFee.$touched && vm.agreementform.administrativeFee.$invalid) ||
+ (vm.agreementform.legalFee.$touched && vm.agreementform.legalFee.$invalid) || 
+ (vm.agreementform.interest.$touched && vm.agreementform.interest.$invalid) ||
+ (vm.agreementform.tax.$touched && vm.agreementform.tax.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Charges</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <input type="text" id="administrativeFee" name="administrativeFee" ng-currency data-ng-model="vm.agreement.administrativeFee"
+                class="text-primary form-control" placeholder="Administrative Fees" />
+              <div ng-messages="vm.agreementform.administrativeFee.$error" ng-show="vm.agreementform.administrativeFee.$touched && vm.agreementform.administrativeFee.$invalid"
+                class="help-block">
+                <div ng-message="required">Administrative Fee is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="legalFee" name="legalFee" ng-currency data-ng-model="vm.agreement.legalFee" class="text-primary form-control"
+                placeholder="Legal Fees" />
+              <div ng-messages="vm.agreementform.legalFee.$error" ng-show="vm.agreementform.legalFee.$touched && vm.agreementform.legalFee.$invalid"
+                class="help-block">
+                <div ng-message="required">Legal Fee is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="interest" name="interest" ng-currency data-ng-model="vm.agreement.interest" class="text-primary form-control"
+                placeholder="Interest" />
+              <div ng-messages="vm.agreementform.interest.$error" ng-show="vm.agreementform.interest.$touched && vm.agreementform.interest.$invalid"
+                class="help-block">
+                <div ng-message="required">Interest is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="tax" name="tax" ng-currency data-ng-model="vm.agreement.tax" class="text-primary form-control" placeholder="Tax"
+              />
+              <div ng-messages="vm.agreementform.tax.$error" ng-show="vm.agreementform.tax.$touched && vm.agreementform.tax.$invalid" class="help-block">
+                <div ng-message="required">Tax is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <div class="form-group" id="classification-group" name="classification-group" ng-class="{ 'has-error': (vm.agreementform.agreementDate.$touched && vm.agreementform.agreementDate.$invalid) || (vm.agreementform.assetNo.$touched && vm.agreementform.assetNo.$invalid) || (vm.agreementform.classification.$touched && vm.agreementform.classification.$invalid) }"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+        <label class="col-sm-3 control-label">Debt Details</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <input data-ng-model="vm.agreement.agreementDate" format="DD/MM/YYYY" type="text" id="agreementDate" name="agreementDate"
+                class="form-control">
+
+              <div ng-messages="vm.agreementform.agreementDate.$error" ng-show="vm.agreementform.agreementDate.$touched && vm.agreementform.agreementDate.$invalid"
+                class="help-block">
+                <div ng-message="required">Agreement Date is required.</div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+            <div class="col-lg-3">
+
+              <input type="text" id="commission" name="commission" ng-currency data-ng-model="vm.agreement.commission" class="text-primary form-control"
+                placeholder="Commission" />
+
+              <div ng-messages="vm.agreementform.commission.$error" ng-show="vm.agreementform.commission.$touched && vm.agreementform.commission.$invalid"
+                class="help-block">
+                <div ng-message="required">Commission is required.</div>
+              </div>
+
+            </div>
+            <div class="col-lg-3">
+
+              <input type="text" id="gross" name="gross" ng-currency data-ng-model="vm.agreement.gross" class="text-primary form-control"
+                placeholder="Gross" />
+
+              <div ng-messages="vm.agreementform.gross.$error" ng-show="vm.agreementform.gross.$touched && vm.agreementform.gross.$invalid"
+                class="help-block">
+                <div ng-message="required">Gross is required.</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+
+
+
+
+
+
+
+
+
+
+  </form>
+
+
+
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-md btn-primary" ng-click="vm.ok()" ng-disabled=!vm.agreementform.$valid value="Save Agreement">Submit</button>
+  <button type="button" class="btn btn-md btn-warning" ng-click="vm.cancel()" value="Cancel Agreement">Cancel</button>
+</div>

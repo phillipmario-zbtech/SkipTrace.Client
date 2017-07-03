@@ -1,0 +1,124 @@
+<fieldset>
+  <legend>Payment Details:</legend>
+  <div class="form-group" id="amounts-group" name="amounts-group" ng-class="{ 'has-error': (vm.paymentform.principal.$touched && vm.paymentform.principal.$invalid) || (vm.paymentform.settlement.$touched && vm.paymentform.settlement.$invalid)}"
+    ng-disabled="!vm.guardSvc.authorized()">
+    <label class="col-sm-3 control-label">Debt Amounts</label>
+    <div class="col-sm-9">
+      <div class="row">
+        <div class="col-lg-6">
+          <input type="text" id="principal" name="principal" ng-currency data-ng-model="vm.payment.debt.principal" class="text-primary form-control"
+            placeholder="Principal Amount Owed" />
+          <div ng-messages="vm.paymentform.principal.$error" ng-show="vm.paymentform.principal.$touched && vm.paymentform.principal.$invalid"
+            class="help-block">
+            <div ng-message="required">Principal is required.</div>
+          </div>
+        </div>
+        <!-- /.col-lg-6 -->
+        <div class="col-lg-6">
+
+          <div class="input-group">
+
+            <div class="input-group-addon">$</div>
+            <input type="text" id="settlement" name="settlement" ng-currency data-ng-model="vm.payment.debt.settlement" class="text-primary form-control"
+              placeholder="Settlement Amount" />
+            <span class="input-group-btn"> <button type="button" class="btn btn-default">Charges</button> </span>
+          </div>
+
+          <div ng-messages="vm.paymentform.settlement.$error" ng-show="vm.paymentform.settlement.$touched && vm.paymentform.settlement.$invalid"
+            class="help-block">
+            <div ng-message="required">Settlement is required.</div>
+          </div>
+        </div>
+        <!-- /.col-lg-6 -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </div>
+  <div class="form-group" id="charges-group" name="charges-group" ng-class="{ 'has-error': (vm.paymentform.administrativeFee.$touched && vm.paymentform.administrativeFee.$invalid) ||
+       (vm.paymentform.legalFee.$touched && vm.paymentform.legalFee.$invalid) || 
+       (vm.paymentform.interest.$touched && vm.paymentform.interest.$invalid) ||
+       (vm.paymentform.tax.$touched && vm.paymentform.tax.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+    <label class="col-sm-3 control-label">Charges</label>
+    <div class="col-sm-9">
+      <div class="row">
+        <div class="col-lg-3">
+          <input type="text" id="administrativeFee" name="administrativeFee" ng-currency data-ng-model="vm.payment.debt.administrativeFee" class="text-primary form-control"
+            placeholder="Administrative Fees" />
+          <div ng-messages="vm.paymentform.administrativeFee.$error" ng-show="vm.paymentform.administrativeFee.$touched && vm.paymentform.administrativeFee.$invalid"
+            class="help-block">
+            <div ng-message="required">Administrative Fee is required.</div>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+          <input type="text" id="legalFee" name="legalFee" ng-currency data-ng-model="vm.payment.debt.legalFee" class="text-primary form-control"
+            placeholder="Legal Fees" />
+          <div ng-messages="vm.paymentform.legalFee.$error" ng-show="vm.paymentform.legalFee.$touched && vm.paymentform.legalFee.$invalid"
+            class="help-block">
+            <div ng-message="required">Legal Fee is required.</div>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+          <input type="text" id="interest" name="interest" ng-currency data-ng-model="vm.payment.debt.interest" class="text-primary form-control"
+            placeholder="Interest" />
+          <div ng-messages="vm.paymentform.interest.$error" ng-show="vm.paymentform.interest.$touched && vm.paymentform.interest.$invalid"
+            class="help-block">
+            <div ng-message="required">Interest is required.</div>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-3">
+          <input type="text" id="tax" name="tax" ng-currency data-ng-model="vm.payment.debt.tax" class="text-primary form-control" placeholder="Tax"
+          />
+          <div ng-messages="vm.paymentform.tax.$error" ng-show="vm.paymentform.tax.$touched && vm.paymentform.tax.$invalid" class="help-block">
+            <div ng-message="required">Tax is required.</div>
+          </div>
+        </div>
+        <!-- /.col-lg-3 -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </div>
+  <div class="form-group" id="classification-group" name="classification-group" ng-class="{ 'has-error': (vm.paymentform.referenceNo.$touched && vm.paymentform.referenceNo.$invalid) || (vm.paymentform.assetNo.$touched && vm.paymentform.assetNo.$invalid) || (vm.paymentform.classification.$touched && vm.paymentform.classification.$invalid) }"
+    ng-disabled="!vm.guardSvc.authorized()">
+
+    <label class="col-sm-3 control-label">Debt Classification</label>
+    <div class="col-sm-9">
+      <div class="row">
+        <div class="col-lg-4">
+          <input type="text" id="classification" name="classification" data-ng-model="vm.payment.debt.classification" ng-minlength="2"
+            ng-maxlength="10" required class="text-primary form-control" placeholder="Classification" validate-on="blur" clear-on="focus"
+          />
+
+          <div ng-messages="vm.paymentform.classification.$error" ng-show="vm.paymentform.classification.$touched && vm.paymentform.classification.$invalid"
+            class="help-block">
+            <div ng-message="required">Classification is required.</div>
+            <div ng-message="minlength">Your value for Classification is too short</div>
+            <div ng-message="maxlength">Your value for Classification is too long</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" id="assetNo" name="assetNo" data-ng-model="vm.payment.debt.assetNo" ng-minlength="2" ng-maxlength="10"
+            class="text-primary form-control" placeholder="Asset No" validate-on="blur" clear-on="focus" />
+
+          <div ng-messages="vm.paymentform.assetNo.$error" ng-show="vm.paymentform.assetNo.$touched && vm.paymentform.assetNo.$invalid"
+            class="help-block">
+            <div ng-message="minlength">Your value for Asset No is too short</div>
+            <div ng-message="maxlength">Your value for Asset No is too long</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <input type="text" id="referenceNo" name="referenceNo" data-ng-model="vm.payment.debt.referenceNo" ng-minlength="2" ng-maxlength="10"
+            class="text-primary form-control" placeholder="Reference No" validate-on="blur" clear-on="focus" />
+
+          <div ng-messages="vm.paymentform.referenceNo.$error" ng-show="vm.paymentform.referenceNo.$touched && vm.paymentform.referenceNo.$invalid"
+            class="help-block">
+            <div ng-message="minlength">Your value for Reference No is too short</div>
+            <div ng-message="maxlength">Your value for Reference No is too long</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</fieldset>

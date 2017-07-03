@@ -1,0 +1,23 @@
+<div class="row">
+  <!--<div class="col-md-12" ng-if="searchStatus.hasSearched">-->
+  <div class="col-md-12">
+    <br>
+    <div ng-hide="searchStatus.busy">
+      <span>{{debts.length}} results returned</span>
+      <!--list all the selected filters-->
+      <ul class="list-inline inline-list" style="display:inline" ng-repeat="filterType in filters">
+        <li ng-repeat="filterValue in filterType">
+          <span ng-if="$first && $parent.$first || $first && $parent.$$prevSibling.filterType.length === 0"> in:</span> {{filterValue.name}}
+          <span ng-if="!($last && $parent.$last) && !($last && $parent.$$nextSibling.filterType.length === 0)">,</span>
+        </li>
+      </ul>
+    </div>
+    <div ng-show="searchStatus.busy">
+      <i class="fa fa-circle-o-notch fa-spin"></i>
+      <span>Searching...</span>
+    </div>
+  </div>
+  <div class="col-md-12" ng-if="!searchStatus.busy && debts.length === 0">
+    <h3><small>search for debts using the filters and/or using a specific search term</small></h3>
+  </div>
+</div>

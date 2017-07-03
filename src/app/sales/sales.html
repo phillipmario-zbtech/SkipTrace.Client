@@ -1,0 +1,64 @@
+<div class="container-fluid" ui-tour="salesTour" appendToBody="true">
+  <div class="media">
+    <div class="media-body">
+      <h2>
+        <span>	{{vm.moduleInfo.title}}</span>
+      </h2> 
+      <p> <span class="text-muted">{{vm.moduleInfo.helpText}}</span></p> 
+      <div class="btn-group pull-right" role="group" aria-label="Collection Options">
+        <button type="button" ng-show="vm.guardSvc.authorized(['Sales Supervisors'])" ng-click="vm.openLeftAside()" class="btn btn-sm btn-default">Supervisor Options</button>
+        <button type="button" ng-show="vm.guardSvc.authorized(['Agents'])" ng-click="vm.openRightAside()" class="btn btn-sm btn-default">Agent Options</button>
+        <button type="button" ng-click="vm.startTour()" class="btn btn-sm btn-info">Tour/Help</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+
+
+  <div class="row">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+
+      <div ui-view></div>
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+      <div class="panel panel-warning" tour-step tour-step-belongs-to="salesTour" tour-step-title="Sales Representative Performance"
+        tour-step-content="Indicates standard effectiveness of sales-representatives">
+        <div class="panel-heading">
+          <h3 class="panel-title">Agent Performance</h3>
+        </div>
+        <div class="panel-body">
+          <div class="text-center">
+            <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+            <h5>loading...</h5>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-warning" tour-step tour-step-belongs-to="salesTour" tour-step-title="Sales Membership Searcher" tour-step-content="Use this to search/filter active members">
+        <div class="panel-heading">
+          <h3 class="panel-title">Agent Statements</h3>
+        </div>
+        <div class="panel-body">
+          <div class="text-center">
+            <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+            <h5>loading Member Statements...</h5>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h3 class="panel-title">Upcoming Renewals</h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="text-center">
+            <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+            <h5>loading Upcoming Renewals...</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

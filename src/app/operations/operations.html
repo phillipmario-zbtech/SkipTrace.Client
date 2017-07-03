@@ -1,0 +1,104 @@
+<div class="container-fluid" ui-tour ui-tour-on-start="vm.onTourStart()" ui-tour-placement="bottom">
+  <div class="media">
+    <div class="media-body">
+      <h2>
+        <span>	{{vm.moduleInfo.title}}</span>
+      </h2>
+      <p> <span class="text-muted">{{vm.moduleInfo.helpText}}</span></p>
+      <div class="btn-group pull-right" role="group" aria-label="Collection Options">
+        <button type="button" ng-show="vm.guardSvc.authorized(['Operations Supervisors'])" ng-click="vm.openLeftAside()" class="btn btn-sm btn-default">Supervisor Options</button>
+        <button type="button" ng-show="vm.guardSvc.authorized(['Users', 'Operations Clerks'])" ng-click="vm.openRightAside()" class="btn btn-sm btn-default">Clerk Options</button>
+
+        <button type="button" ng-click="vm.startTour()" class="btn btn-sm btn-info">Tour/Help</button>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <associate-builder></associate-builder>
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+      <div ui-view></div>
+    </div>
+
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h3 class="panel-title pull-left">
+                <i class="fa fa-gear" aria-hidden="true"> </i>&nbsp;<strong>Transactions</strong>
+              </h3>
+              <div class="clearfix"></div>
+            </div>
+            <div class="panel-body fixed-panel">
+
+              <div class="list-group">
+                <a ng-repeat="transaction in vm.bs.transactions" href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading">{{transaction.name}}</h4>
+                  <p class="list-group-item-text">{{transaction.id}}</p>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+          <uib-tabset active="0" type="tabs" vertical="false" justified="false">
+            <uib-tab heading="Suspended Members" index="0">
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h3 class="panel-title pull-left">
+                    <i class="fa fa-pause-circle" aria-hidden="true"> </i>&nbsp;<strong>Suspended Members</strong>
+                  </h3>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="panel-body fixed-panel">
+                  <suspended-members></suspended-members>
+                </div>
+              </div>
+            </uib-tab>
+            <uib-tab heading="Unassigned Debts" index="1">
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h3 class="panel-title pull-left">
+                    <i class="fa fa-inbox" aria-hidden="true"> </i>&nbsp;<strong>Unassigned Debts</strong>
+                  </h3>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                  <unassigned-debts></unassigned-debts>
+                </div>
+              </div>
+            </uib-tab>
+          </uib-tabset>
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+</div>
+</div>

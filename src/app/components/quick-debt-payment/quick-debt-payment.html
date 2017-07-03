@@ -1,0 +1,91 @@
+<form class="form" role="form" name="quickPayForm" st-disable-when-busy>
+  <div class="row">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="vm.request.debtId" st-async-validators="{'unique': vm.checkDebtExists}"
+          id="debtId" placeholder="Debt #" required />
+        <span class="input-group-btn"> 
+<button type="submit" class="btn btn-warning" ng-disabled="quickPayForm.$invalid && quickPayForm.$dirty" ng-click="vm.getDebtBalance()"><i class="glyphicon glyphicon-search"></i></button>
+</span>
+      </div>
+      <span class="help-block" ng-show="quickPayForm.debtId.$error.unique && quickPayForm.$dirty">This Debt may not be Active</span>
+    </div>
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+      <div class="input-group">
+        <input type="text" id="balanceAmount" placeholder="Balance/Payment" class="form-control" ng-currency ng-disabled="(quickPayForm.$pristine) || (quickPayForm.$invalid && quickPayForm.$dirty)"
+          ng-model="vm.payment.amount" ng-model-options='{ debounce: 500 }' ng-change='vm.getAmountCharges()'>
+        <span class="input-group-btn"> 
+<button type="button"  ng-show="vm.payment.amount" ng-disabled="vm.status.processed"  ng-click="vm.submitPayment()"  class="btn btn-info">Pay</button></span>
+      </div>
+
+    </div>
+  </div>
+  <div class="row" ng-show="vm.payment.amount">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <table class="table table-hover table-condensed" ng-show="vm.payment.amount">
+        <thead>
+          <tr>
+            <th>
+              Charge
+            </th>
+            <th>
+              Amount
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              Amount
+            </td>
+            <td>
+              {{vm.charges.amount | currency : $ }}
+            </td>
+
+          </tr>
+          <tr class="active">
+            <td>
+              Administrative Fee
+            </td>
+            <td>
+              {{vm.charges.administrativeFee | currency : $ }}
+            </td>
+
+          </tr>
+          <tr class="success">
+            <td>
+              Legal Fees
+            </td>
+            <td>
+              {{vm.charges.legalFee | currency : $ }}
+            </td>
+
+          </tr>
+          <tr class="warning">
+            <td>
+              Interest
+            </td>
+            <td>
+              {{vm.charges.interest | currency : $ }}
+            </td>
+
+          </tr>
+          <tr class="danger">
+            <td>
+              Taxes/VAT
+            </td>
+            <td>
+              {{vm.charges.tax | currency : $ }}
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <button type="button" class="btn btn-large btn-block btn-primary" ng-click="vm.printReceipt()" ng-disabled="!vm.status.processed">Print Receipt</button>
+
+    </div>
+  </div>
+
+</form>

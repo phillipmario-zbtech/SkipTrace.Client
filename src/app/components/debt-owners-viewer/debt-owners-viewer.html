@@ -1,0 +1,18 @@
+<ul class="media-list">
+  <li class="media" ng-repeat="debtor in vm.owners">
+    <div class="media-left">
+      <a href="#" ui-sref="collections.debtors({ id: debtor.id })" class="pull-left"><img st-img-person="" alt="debtor.debtorName" src="http://lorempixel.com/64/64/" class="media-object" /></a>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading"><strong>   {{debtor.debtorName}}
+        
+        </strong></h4>
+
+      <address>
+        <strong>{{debt.address}}</strong><br /> {{debt.city}}<br />  
+        <abbr title="Phone">P:</abbr> Cannot Load Phones
+      </address>
+    </div> 
+
+  </li>
+</ul>

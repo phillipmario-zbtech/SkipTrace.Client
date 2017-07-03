@@ -1,0 +1,34 @@
+<!-- begin login -->
+<div class="login" ng-controller="loginController">
+  <!-- begin login-brand -->
+  <div class="login-brand bg-inverse text-white">
+    <img src="assets/img/logo-white.png" height="36" class="pull-right" alt="" /> Login Panel
+  </div>
+  <!-- end login-brand -->
+  <!-- begin login-content -->
+  <div class="login-content">
+    <h4 class="text-center m-t-0 m-b-20">Great to have you back!</h4>
+    <form method="POST" name="loginForm" class="form-input-flat" novalidate ng-submit="submitForm(loginForm)">
+      <div class="form-group" ng-class="{ 'has-error has-feedback':loginForm.email.$error && loginForm.email.$touched }">
+        <input type="email" class="form-control input-lg" name="email" ng-model="login.email" placeholder="Email Address" required
+        />
+        <span class="fa fa-exclamation-circle fa-lg form-control-feedback" ng-show="loginForm.email.$error" ng-hide="loginForm.email.$valid"></span>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error has-feedback':loginForm.password.$error && loginForm.password.$touched }">
+        <input type="password" class="form-control input-lg" name="password" ng-model="login.password" placeholder="Password" required
+        />
+        <span class="fa fa-exclamation-circle fa-lg form-control-feedback" ng-show="loginForm.password.$error" ng-hide="loginForm.password.$valid"></span>
+      </div>
+      <div class="row m-b-20">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-lime btn-lg btn-block">Sign in to your account</button>
+        </div>
+      </div>
+      <!--<div class="text-center">
+                New here? <a ui-sref="register" class="text-muted">Create a new account</a>
+            </div>-->
+    </form>
+  </div>
+  <!-- end login-content -->
+</div>
+<!-- end login -->

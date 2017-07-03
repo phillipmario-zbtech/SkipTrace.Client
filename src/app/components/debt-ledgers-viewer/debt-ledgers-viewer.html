@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+    <div class="btn-group pull-right" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-sm btn-default">Generate Ledger Card</button>
+      <button type="button" class="btn btn-sm btn-default">Pay Debt</button>
+      <button type="button" class="btn btn-sm btn-default">Invoice Member</button>
+    </div> 
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body fixed-panel">
+
+
+
+        <div class="table-responsive">
+          <table class="table table-hover table-condensed">
+            <thead>
+              <tr>
+                <th>Transaction Date</th>
+                <th>Type</th>
+                <th>Reference</th>
+                <th>Description</th>
+                <th>Gross</th>
+                <th>Amount</th>
+                <th>Paid to Date</th>
+                <th>Balance</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="ledger in vm.ledgers">
+                <td>{{ledger.transactionDate | date: 'dd-MMM-yyyy' }} </td>
+                <td>{{ledger.transactionType}}</td>
+                <td>{{ledger.reference}}</td>
+                <td>{{ledger.description}}</td>
+                <td class="text-right"> {{ledger.gross | currency}} </td>
+                <td class="text-right"> {{ledger.amount | currency}} </td>
+                <td class="text-right"> {{ledger.paidToDate | currency}} </td>
+                <td class="text-right"> {{ledger.balance | currency}} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

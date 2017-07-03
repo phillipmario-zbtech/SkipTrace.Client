@@ -1,0 +1,19 @@
+<ul uib-pager total-items="debts.length" ng-model="currentPage">
+</ul>
+<ul class="list-unstyled">
+  <li class="media" ng-repeat="debt in debts | offset: currentPage*itemsPerPage | limitTo: itemsPerPage">
+     
+
+ <a href="#" uib-popover-template="vm.debtView.templateUrl" popover-title="{{debt.debtorName}}" popover-trigger="'mouseenter'"
+      popover-placement="left">{{debt.id}}</a>
+
+    <div class="media-body">
+      <h4 class="media-heading">
+        <a href="" ui-sref="collections.debts({ id: debt.id })">{{debt.debtorName}}</a>
+        <span class="pull-right"> <small>{{debt.member.memberName}}</small></small></span>
+      </h4>
+      <p> <span class="text-warning">{{debt.address}}, {{debt.city}}</span></p>
+    </div>
+  </li>
+</ul>
+<ul uib-pager total-items="debts.length" ng-model="currentPage"></ul>

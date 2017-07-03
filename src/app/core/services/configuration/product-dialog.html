@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+      <uib-rating ng-model="vm.rating" max="5" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'" read-only="false"
+        on-hover="vm.hoverRating(value)" on-leave="vm.leftRating()"></uib-rating>
+      <span class="label">{{vm.rating}}</span>
+
+
+<div class="form-group">
+  <label for="inputMyRange" class="col-sm-2 control-label">MyRange:</label>
+  <div class="col-sm-10">
+    <input type="range" name="t" id="inputMyRange" class="form-control" value="" min="{6"} max="" step="1" required="required" title="">
+  </div>
+</div>
+
+
+
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <uib-tabset active="0" type="tabs" vertical="false" justified="false">
+        <uib-tab heading="Charges/Rates" index="0">
+          <table class="table table-condensed table-hover">
+            <thead>
+              <tr>
+                <th>id</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </uib-tab>
+        <uib-tab heading="Commission Charges" index="1">
+          <table class="table table-condensed table-hover">
+            <thead>
+              <tr>
+                <th>de</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>3</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </uib-tab>
+      </uib-tabset>
+
+
+      <div range-slider min="0" max="100" model-min="vm.min" model-max="vm.max" pin-handle="vm.min"></div>
+    </div>
+  </div>
+
+
+
+
+
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="vm.ok()">Submit</button>
+  <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

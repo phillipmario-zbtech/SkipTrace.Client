@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <input type="text" class="form-control" id="reasonName" placeholder="Enter Reason's Name" ng-model="vm.reason.reasonName">
+  </div>
+
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <button type="button" class="btn btn-large btn-block btn-success" ng-disabled="!vm.canAdd()" ng-click="vm.addReason()">Add Reason</button>
+  </div>
+</div>
+<div class="row">
+  <ul>
+    <li ng-repeat="reason in vm.reasons track by $index">{{reason.reasonName}}
+
+      <button type="button" class="close pull-right" data-dismiss="modal" ng-disabled="!vm.canDelete()" ng-click="vm.deleteReason(reason)"
+        uib-tooltip="Delete this Reason">×</button>
+    </li>
+  </ul>
+</div>

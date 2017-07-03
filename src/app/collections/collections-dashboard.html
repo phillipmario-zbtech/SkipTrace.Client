@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <uib-tabset active="0" type="tabs" vertical="false" justified="false">
+      <uib-tab heading="Recovery Centre" index="0">
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <br>
+
+
+            <div class="panel panel-warning" tour-step tour-step-belongs-to="collectionsTour" tour-step-title="General Debt Listing">
+              <div class="panel-heading">
+                <h3 class="panel-title pull-left">
+                  <i class="glyphicon glyphicon-inbox"></i>&nbsp;<strong>General Debt Listing</strong>
+                </h3>
+                <!--span class="badge pull-right">7232</span-->
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <recovery-manager> </recovery-manager>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+      </uib-tab>
+      <uib-tab heading="Letter Centre" index="1">
+          <letter-list-viewer></letter-list-viewer>
+        <div class="container-fluid">
+        </div>
+      </uib-tab>
+      <uib-tab heading="Ledgers" index="2">
+          <ledger-list-viewer></ledger-list-viewer>
+        <div class="container-fluid">
+
+        </div>
+      </uib-tab>
+      <uib-tab heading="Call History" index="3">
+        <uib-tab-heading>
+          Call History
+        </uib-tab-heading>
+          <call-history-manager></call-history-manager>
+        <div class="container-fluid">
+        </div>
+      </uib-tab>
+
+
+    </uib-tabset>
+  </div>
+</div>

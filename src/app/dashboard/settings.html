@@ -1,0 +1,25 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Settings</h2>
+    </div>
+  </div>
+  <div class="row">
+    
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      
+    </div>
+    
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+      <form name="myForm" ng-repeat="(key, val) in vm.$settings.settings">
+        <strong>{{key}}</strong>
+        <div class="radio" ng-repeat="o in val.options">
+          <label>
+            <input type="radio" ng-model="val.value" value="{{o}}" ng-click="vm.$settings.set(key,o)">
+            {{o}}
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

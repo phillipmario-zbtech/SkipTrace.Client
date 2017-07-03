@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+  <form ng-submit="vm.ok();vm.resetForm();" name="vm.assignmentform" class="form-horizontal" role="form" novalidate>
+Pick Collector type
+Pick Collector
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-md btn-primary" ng-click="vm.ok()" ng-disabled=!vm.assignmentform.$valid value="Save Assignment">Submit</button>
+  <button type="button" class="btn btn-md btn-warning" ng-click="vm.cancel()" value="Cancel Assignment">Cancel</button>
+</div>

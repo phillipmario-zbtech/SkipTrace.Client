@@ -1,0 +1,95 @@
+ 
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="btn-group pull-right" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-sm btn-default">Add New Address</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body fixed-panel">
+        <div class="text-center">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+          <h5>Loading {{vm.title}}...</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+    <div class="form-group">
+      <div class="col-sm-12">
+        <input type="search" name="receiptFilter" id="inputReceiptFilter" class="form-control" ng-model="vm.receiptfilter" placeholder="Filter Receipt #"
+          title="Receipt No Filter">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+  </div>
+  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+    <button type="button" ng-disabled="vm.canClear" ng-click="vm.verifyAllPayments()" class="btn btn-large btn-block btn-success">Verify All</button>
+  </div>
+
+</div>
+<br>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="table-responsive fixed-panel">
+      <table class="table table-hover table-striped table-condensed">
+        <thead>
+          <tr>
+            <th><input type="checkbox" ng-click="vm.toggleAll()" ng-model="vm.isAllSelected"></th>
+            <th>Receipt #</th>
+            <th>Date</th>
+            <th>Member</th>
+            <th>Plan/Package</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="payment in vm.payments | filter:  {receiptNo:vm.receiptfilter}  | filter:new_search">
+
+            <td><input type="checkbox" ng-model="payment.selected" ng-change="vm.optionToggled()"></td>
+
+            <td>
+              <a href="#" uib-popover-template="vm.paymentView.templateUrl" popover-title="{{payment.id}}" popover-trigger="'mouseenter'"
+                popover-placement="right">{{payment.receiptNo}}</a>
+
+            </td>
+            <td>
+              <p class="text-right"> {{ payment.paymentDate | date:'dd-MMM-yyyy'}}</p>
+            </td>
+            <td>
+              {{payment.subscription.member.memberName | characters:25 :true }}
+              <!--input type="text" ng-model="epi.COST_PROJECTED" onkeypress="return OnlyNumeric(event);" /-->
+            </td>
+            <td>{{payment.subscription.product.productName}}</td>
+            <td>
+              <p class="text-right"> {{payment.amount | currency }}</p>
+            </td>
+            <td>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true" uib-tooltip="Cancel This Payment" ng-click="vm.cancelPayment(payment)"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;</button>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true" uib-tooltip="Print This Receipt" ng-click="vm.printPayment(payment)"><span class="glyphicon glyphicon-print"></span>&nbsp;</button>
+
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true" uib-tooltip="Confirm this Payment as Received"
+                ng-click="vm.verifyPayment(payment)"><span class="glyphicon glyphicon-ok"></span>&nbsp;</button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <div class="panel panel-warning"  tour-step tour-step-belongs-to="collectionsTour" tour-step-title="Active Debt Filters">
+      <!--loader-->
+      <div class="panel-body" ng-hide="vm.status.loaded">
+        <div class="text-center">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+          <h5>loading filters...</h5>
+        </div>
+      </div>
+      <!--filters-->
+      <div class="panel-body" ng-show="vm.status.loaded">
+
+        <debt-search search-text="vm.query.searchText"></debt-search>
+        <br>
+        <debt-filter available-filters="vm.options.selectableFilters" query="vm.query"></debt-filter>
+        <!--authrized debug only-->
+        <h5>query:</h5>
+        <pre ng-show="vm.guardSvc.authorized()">{{vm.query | json}}</pre>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <div class="panel panel-warning">
+      <!--loader-->
+      <div class="panel-body" ng-hide="vm.status.loaded">
+        <div class="text-center">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+          <h5>loading debts...</h5>
+        </div>
+      </div>
+      <!--filters-->
+      <div class="panel-body" ng-show="vm.status.loaded">
+        <div class="row">
+          <div class="col-md-12">
+            <debt-sort order-by-options="vm.options.orderByOptions" order-by="vm.query.orderBy"></debt-sort>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <debt-search-status debts="vm.debts" filters="vm.currentQuery.filters" search-status="vm.status"></debt-search-status>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-12">
+
+            <ul class="list-unstyled"  tour-step tour-step-belongs-to="collectionsTour" tour-step-title="Search Results based on selected debt filters">
+              <li ng-repeat="debt in vm.debts">
+                <a ui-sref="collections.debts({ id: debt.id })" uib-popover-template="vm.debtView.templateUrl" popover-title="{{debt.debtorName}}"
+                  popover-trigger="'mouseenter'" popover-placement="right">
+                                  {{debt.debtorName}}
+                                                     
+                                    </a> </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,348 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+  <form ng-submit="vm.ok();vm.resetForm();" name="vm.memberform" class="form-horizontal" role="form" novalidate>
+    <div class="form-group" id="memberName-group" name="memberName-group" ng-class="{ 'has-error': vm.memberform.memberName.$touched && vm.memberform.memberName.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="memberName" class="col-sm-3 control-label" uib-tooltip="Tooltip For MemberName">Company Name</label>
+      <div class="col-sm-9">
+        <input type="text" id="memberName" name="memberName" data-ng-model="vm.application.member.memberName" ng-minlength="2" ng-maxlength="100"
+          required class="text-primary form-control" placeholder="Member Company Name" validate-on="blur" clear-on="focus"
+        />
+        <div ng-messages="vm.memberform.memberName.$error" ng-show="vm.memberform.memberName.$touched && vm.memberform.memberName.$invalid"
+          class="help-block">
+          <div ng-message="required">Member Name is required.</div>
+          <div ng-message="minlength">Your value for Member Name is too short</div>
+          <div ng-message="maxlength">Your value for Member Name is too long</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group" id="emailauthorizedBy-group" name="emailauthorizedBy-group" ng-class="{ 'has-error': (vm.memberform.email.$touched && vm.memberform.email.$invalid)|| (vm.memberform.authorizedBy.$touched && vm.memberform.authorizedBy.$invalid) }"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="email" class="col-sm-3 control-label" uib-tooltip="Tooltip For Email">Approver/Contact Method</label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <input type="text" id="authorizedBy" name="authorizedBy" data-ng-model="vm.application.associate.authorizedBy" ng-minlength="2"
+              ng-maxlength="100" required class="text-primary form-control" placeholder="Primary Contact/Approver" validate-on="blur"
+              clear-on="focus" />
+            <div ng-messages="vm.memberform.authorizedBy.$error" ng-show="vm.memberform.authorizedBy.$touched && vm.memberform.authorizedBy.$invalid"
+              class="help-block">
+              <div ng-message="required">Authorized By is required.</div>
+              <div ng-message="minlength">Your value for Authorized By is too short</div>
+              <div ng-message="maxlength">Your value for Authorized By is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <input type="text" id="email" name="email" data-ng-model="vm.application.member.email" ng-minlength="2" ng-maxlength="50"
+              class="text-primary form-control" placeholder="Email" validate-on="blur" clear-on="focus" />
+            <div ng-messages="vm.memberform.email.$error" ng-show="vm.memberform.email.$touched && vm.memberform.email.$invalid" class="help-block">
+              <div ng-message="minlength">Your value for Email is too short</div>
+              <div ng-message="maxlength">Your value for Email is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+    <div class="form-group" id="primaryPhone-group" name="primaryPhone-group" ng-class="{ 'has-error': vm.memberform.primaryPhone.$touched && vm.memberform.primaryPhone.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label class="col-sm-3 control-label" uib-tooltip="Tooltip For Phones">Phone(s)</label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <input type="text" id="primaryPhone" name="primaryPhone" data-ng-model="vm.application.member.primaryPhone" ng-minlength="2"
+              ng-maxlength="10" required class="text-primary form-control" placeholder="Primary Phone" validate-on="blur" clear-on="focus"
+            />
+            <div ng-messages="vm.memberform.primaryPhone.$error" ng-show="vm.memberform.primaryPhone.$touched && vm.memberform.primaryPhone.$invalid"
+              class="help-block">
+              <div ng-message="required">Primary Phone is required.</div>
+              <div ng-message="minlength">Your value for Primary Phone is too short</div>
+              <div ng-message="maxlength">Your value for Primary Phone is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <input type="text" id="secondaryPhone" name="secondaryPhone" data-ng-model="vm.application.member.secondaryPhone" ng-minlength="2"
+              ng-maxlength="10" class="text-primary form-control" placeholder="Secondary Phone" validate-on="blur" clear-on="focus"
+            />
+            <div ng-messages="vm.memberform.secondaryPhone.$error" ng-show="vm.memberform.secondaryPhone.$touched && vm.memberform.secondaryPhone.$invalid"
+              class="help-block">
+              <div ng-message="minlength">Your value for Secondary Phone is too short</div>
+              <div ng-message="maxlength">Your value for Secondary Phone is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+    <div class="form-group" id="fax-group" name="fax-group" ng-class="{ 'has-error': vm.memberform.fax.$touched && vm.memberform.fax.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="fax" class="col-sm-3 control-label" uib-tooltip="Tooltip For Fax">Fax</label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <input type="text" id="fax" name="fax" data-ng-model="vm.application.member.fax" ng-minlength="2" ng-maxlength="10" class="text-primary form-control"
+              placeholder="Fax" validate-on="blur" clear-on="focus" />
+            <div ng-messages="vm.memberform.fax.$error" ng-show="vm.memberform.fax.$touched && vm.memberform.fax.$invalid" class="help-block">
+              <div ng-message="minlength">Your value for Fax is too short</div>
+              <div ng-message="maxlength">Your value for Fax is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <input type="text" id="cell" name="cell" data-ng-model="vm.application.member.cell" ng-minlength="2" ng-maxlength="10" class="text-primary form-control"
+              placeholder="Cell" validate-on="blur" clear-on="focus" />
+            <div ng-messages="vm.memberform.cell.$error" ng-show="vm.memberform.cell.$touched && vm.memberform.cell.$invalid" class="help-block">
+              <div ng-message="minlength">Your value for Cell is too short</div>
+              <div ng-message="maxlength">Your value for Cell is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+    <div class="form-group" id="industryType-group" name="industryType-group" ng-class="{ 'has-error': vm.memberform.industryType.$touched && vm.memberform.industryType.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="industryType" class="col-sm-3 control-label" uib-tooltip="Tooltip For IndustryType">Sector/Industry Type</label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <select id="sectorId" name="sectorId" class="form-control" data-ng-model="vm.application.member.sectorId" data-ng-options="sector.id as sector.sectorDescription for sector in vm.sectors">
+ <option value="" disabled selected>Select Business Sector</option> 
+								</select>
+            <div ng-messages="vm.memberform.sectorId.$error" ng-show="vm.memberform.sectorId.$touched && vm.memberform.sectorId.$invalid"
+              class="help-block">
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <input type="text" id="industryType" name="industryType" data-ng-model="vm.application.member.industryType" ng-minlength="2"
+              ng-maxlength="10" class="text-primary form-control" placeholder="Industry Type" validate-on="blur" clear-on="focus"
+            />
+            <div ng-messages="vm.memberform.industryType.$error" ng-show="vm.memberform.industryType.$touched && vm.memberform.industryType.$invalid"
+              class="help-block">
+              <div ng-message="minlength">Your value for Industry Type is too short</div>
+              <div ng-message="maxlength">Your value for Industry Type is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+    <div class="form-group" id="notes-group" name="notes-group" ng-class="{ 'has-error': vm.memberform.notes.$touched && vm.memberform.notes.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="notes" class="col-sm-3 control-label" uib-tooltip="Tooltip For Notes">Notes</label>
+      <div class="col-sm-9">
+        <textarea id="notes" name="notes" data-ng-model="vm.application.member.notes" class="text-primary form-control" cols="8"
+          rows="3" placeholder="Notes"></textarea>
+      </div>
+    </div>
+    <div class="form-group" id="countryId-group" name="countryId-group" ng-class="{ 'has-error': (vm.memberform.countryId.$touched && vm.memberform.countryId.$invalid) || (vm.memberform.productId.$touched && vm.memberform.productId.$invalid)}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="countryId" class="col-sm-3 control-label" uib-tooltip="Tooltip For Country">Country/Product</label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <select id="countryId" name="countryId" class="form-control" required data-ng-model="vm.countryId" ng-change="vm.getCountryOptions(vm.countryId)"
+              data-ng-options="country.code as country.name for country in vm.countries">
+ <option value="" disabled selected>Select Member Country</option> 
+								</select>
+            <div ng-messages="vm.memberform.countryId.$error" ng-show="vm.memberform.countryId.$touched && vm.memberform.countryId.$invalid"
+              class="help-block">
+              <div ng-message="required">Country is required.</div> 
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <select id="productId" name="productId" class="form-control" ng-disabled="!vm.hasProducts()" required data-ng-model="vm.application.subscription.productId"
+              ng-change="vm.getProductOptions(vm.application.subscription.productId)" data-ng-options="product.id as product.productName for product in vm.products">
+ <option value="" disabled selected>Select Membership Plan</option> 
+								</select>
+
+            <div ng-messages="vm.memberform.productId.$error" ng-show="vm.memberform.productId.$touched && vm.memberform.productId.$invalid"
+              class="help-block">
+              <div ng-message="required">Product is required.</div>
+              <div ng-message="minlength">Your value for Product is too short</div>
+              <div ng-message="maxlength">Your value for Product is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+    <div class="form-group" id="options-group" name="options-group" ng-class="{ 'has-error': vm.memberform.dateoptions.$touched && vm.memberform.dateoptions.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="dateoptions" class="col-sm-3 control-label" uib-tooltip="Membership Options">Contract Dates</label>
+      <div class="col-sm-9">
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-lg-6">  
+            <input date-range-picker class="form-control date-picker" id="contractDates" name="contractDates" type="text" ng-disabled="!vm.hasAgents()"
+              required ng-model="vm.contractDates" />  
+            <div ng-messages="vm.memberform.contractDates.$error" ng-show="vm.memberform.contractDates.$touched && vm.memberform.contractDates.$invalid"
+              class="help-block">
+              <div ng-message="required">Contract Dates is required.</div>
+              <div ng-message="minlength">Your value for Contract Dates is too short</div>
+              <div ng-message="maxlength">Your value for Contract Dates is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+
+      </div>
+    </div>
+
+    <div class="form-group" id="options-group" name="options-group" ng-class="{ 'has-error': (vm.memberform.agentId.$touched && vm.memberform.agentId.$invalid)|| (vm.memberform.contractNo.$touched && vm.memberform.contractNo.$invalid)}"
+      ng-disabled="!vm.guardSvc.authorized()">
+      <label for="options" class="col-sm-3 control-label" uib-tooltip="Membership Options">Plan Options</label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <select id="agentId" name="agentId" class="form-control" ng-disabled="!vm.hasAgents()" required data-ng-model="vm.application.subscription.employee"
+              data-ng-options="agent.id as agent.employeeName for agent in vm.agents">
+ <option value="" disabled selected>Select Selling Agent</option> 
+								</select>
+            <div ng-messages="vm.memberform.agentId.$error" ng-show="vm.memberform.agentId.$touched && vm.memberform.agentId.$invalid"
+              class="help-block">
+              <div ng-message="required">Agent Id is required.</div>
+              <div ng-message="minlength">Your value for Agent Id is too short</div>
+              <div ng-message="maxlength">Your value for Agent Id is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <input type="text" id="contractNo" name="contractNo" data-ng-model="vm.application.subscription.contractNo" ng-minlength="2"
+              ng-maxlength="10" required class="text-primary form-control" placeholder="Contract/Invoice No" validate-on="blur"
+              clear-on="focus" />
+
+            <div ng-messages="vm.memberform.contractNo.$error" ng-show="vm.memberform.contractNo.$touched && vm.memberform.contractNo.$invalid"
+              class="help-block">
+              <div ng-message="required">Contract No is required.</div>
+              <div ng-message="minlength">Your value for Contract No is too short</div>
+              <div ng-message="maxlength">Your value for Contract No is too long</div>
+            </div>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label"></label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="calculateInterest" name="calculateInterest" ng-model="vm.application.subscription.calculateInterest"
+              data-tooltip="Tooltip For CalculateInterest"> <span>Calculate Interest?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+
+            <label> 
+            <input type="checkbox" id="overrideInterest" name="overrideInterest" ng-model="vm.application.subscription.overrideInterest"
+              data-tooltip="Tooltip For OverrideInterest"> <span>Allow Override Interest?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label"></label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="calculateAdministrativeFee" name="calculateAdministrativeFee" ng-model="vm.application.subscription.calculateAdministrativeFee"
+              data-tooltip="Tooltip For CalculateAdministrativeFee"> <span>Calculate Administrative Fee?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="overrideAdministrativeFee" name="overrideAdministrativeFee" ng-model="vm.application.subscription.overrideAdministrativeFee"
+              data-tooltip="Tooltip For OverrideAdministrativeFee"> <span>Allow Calculate Administrative Fee?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label"></label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="calculateLegalFee" name="calculateLegalFee" ng-model="vm.application.subscription.calculateLegalFee"
+              data-tooltip="Tooltip For CalculateLegalFee"> <span>Calculate Legal Fees?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="overrideLegalFee" name="overrideLegalFee" ng-model="vm.application.subscription.overrideLegalFee"
+              data-tooltip="Tooltip For OverrideLegalFee"> <span>Allow Override Legal Fees?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label"></label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="calculateTax" name="calculateTax" ng-model="vm.application.subscription.calculateTax" 
+            data-tooltip="Tooltip For CalculateTax"> <span>Calculate VAT/Tax?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="overrideTax" name="overrideTax" ng-model="vm.application.subscription.overrideTax" 
+            data-tooltip="Tooltip For OverrideTax"> <span>Allow Override VAT/Tax?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-3 control-label"></label>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="calculateCommission" name="calculateCommission" ng-model="vm.application.subscription.calculateCommission"
+              data-tooltip="Tooltip For CalculateCommission"> <span>Calculate Commission?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <label>
+            <input type="checkbox" id="overrideCommission" name="overrideCommission" ng-model="vm.application.subscription.overrideCommission"
+              data-tooltip="Tooltip For OverrideCommission"> <span>Allow Override Commission?</span></label>
+          </div>
+          <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-md btn-primary" ng-click="vm.ok()" ng-disabled=!vm.memberform.$valid value="Save Member">Submit</button>
+  <button type="button" class="btn btn-md btn-warning" ng-click="vm.cancel()" value="Cancel Member">Cancel</button>
+</div>

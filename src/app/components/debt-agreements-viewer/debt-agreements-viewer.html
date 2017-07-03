@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p>All Agreements</p>
+    <div class="btn-group pull-right" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-sm btn-default">New Agreement</button> 
+    </div> 
+  </div>
+</div>
+<br> 
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <div class="panel panel-default">
+      <div class="panel-body fixed-panel">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>
+                Agreement Date
+              </th>
+              <th>
+                Settlement
+              </th>
+              <th>
+                Gross
+              </th>
+              <th>
+                Status
+              </th>
+              <th>
+                Collector
+              </th>
+              <th>
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="agreement in vm.agreements">
+              <td class="text-right">
+                {{agreement.agreementDate | date:'dd-MMM-yyyy' }}
+              </td>
+              <td class="text-right">
+                {{agreement.principal | currency}}
+              </td>
+              <td class="text-right">
+                {{agreement.gross | currency}}
+              </td>
+              <td>
+                {{agreement.status}}
+              </td>
+              <td>
+                {{agreement.collector.employee.employeeName}}
+              </td>
+              <td>
+
+                <button type="button" class="btn btn-xs btn-success">Print</button>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

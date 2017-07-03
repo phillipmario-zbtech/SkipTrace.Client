@@ -1,0 +1,66 @@
+<div class="container-fluid" ui-tour ui-tour-on-start="vm.onTourStart()" ui-tour-placement="bottom">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="jumbotron">
+        <h2>
+          Hello,{{vm.user.username}}, welcome to SkipTrace
+        </h2>
+        <p>
+          SkipTrace is Credit Chex's Debt Recovery and Collections Managment System. It is designed to aid internal Credit Chex employees
+          with member administration ,debt tracking and collections, debtor tracking, billing and more.
+        </p>
+        <p>
+          <a class="btn btn-primary btn-large" ui-sref="about">Learn more</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Product Distribution</h3>
+        </div>
+        <br>
+        <div class="panel-body">
+          <product-distribution-statistics></product-distribution-statistics>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Recovery Performance</h3>
+        </div>
+        <br>
+        <div class="panel-body">
+          <recovery-statistics></recovery-statistics>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<canvas class="chart chart-line" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series" chart-click="vm.onClick"></canvas>
+<div>
+
+  <div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <collector-persistence-statistics></collector-persistence-statistics>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <collector-assignment-statistics></collector-assignment-statistics>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <collector-call-statistics></collector-call-statistics>
+    </div>
+  </div>
+
+
+
+</div>

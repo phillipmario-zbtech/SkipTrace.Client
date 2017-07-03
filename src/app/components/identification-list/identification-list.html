@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <input type="text" class="form-control" id="identificationName" placeholder="Enter Identification's Name" ng-model="vm.identification.identificationName">
+  </div>
+
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <button type="button" class="btn btn-large btn-block btn-success" ng-disabled="!vm.canAdd()" ng-click="vm.addIdentification()">Add Identification</button>
+  </div>
+</div>
+<div class="row">
+  <ul>
+    <li ng-repeat="identification in vm.identifications track by $index">{{identification.identificationName}}
+
+      <button type="button" class="close pull-right" data-dismiss="modal" ng-disabled="!vm.canDelete()" ng-click="vm.deleteIdentification(identification)"
+        uib-tooltip="Delete this Identification">×</button>
+    </li>
+  </ul>
+</div>

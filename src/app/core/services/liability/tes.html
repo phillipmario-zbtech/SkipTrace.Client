@@ -1,0 +1,311 @@
+ 
+
+    <fieldset>
+      <legend>Financial Details:</legend>
+      <div class="form-group" id="amounts-group" name="amounts-group" ng-class="{ 'has-error': (vm.liabilityform.principal.$touched && vm.liabilityform.principal.$invalid) || (vm.liabilityform.settlement.$touched && vm.liabilityform.settlement.$invalid)}"
+        ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Debt Amounts</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-6">
+              <input type="text" id="principal" name="principal" ng-currency data-ng-model="vm.request.debt.principal" class="text-primary form-control"
+                placeholder="Principal Amount Owed" />
+              <div ng-messages="vm.liabilityform.principal.$error" ng-show="vm.liabilityform.principal.$touched && vm.liabilityform.principal.$invalid"
+                class="help-block">
+                <div ng-message="required">Principal is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-6 -->
+            <div class="col-lg-6">
+
+              <div class="input-group">
+
+                <div class="input-group-addon">$</div>
+                <input type="text" id="settlement" name="settlement" ng-currency data-ng-model="vm.request.debt.settlement" class="text-primary form-control"
+                  placeholder="Settlement Amount" />
+                <span class="input-group-btn"> <button type="button" class="btn btn-default">Charges</button> </span>
+              </div>
+
+              <div ng-messages="vm.liabilityform.settlement.$error" ng-show="vm.liabilityform.settlement.$touched && vm.liabilityform.settlement.$invalid"
+                class="help-block">
+                <div ng-message="required">Settlement is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-6 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <div class="form-group" id="charges-group" name="charges-group" ng-class="{ 'has-error': (vm.liabilityform.administrativeFee.$touched && vm.liabilityform.administrativeFee.$invalid) ||
+       (vm.liabilityform.legalFee.$touched && vm.liabilityform.legalFee.$invalid) || 
+       (vm.liabilityform.interest.$touched && vm.liabilityform.interest.$invalid) ||
+       (vm.liabilityform.tax.$touched && vm.liabilityform.tax.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Charges</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <input type="text" id="administrativeFee" name="administrativeFee" ng-currency data-ng-model="vm.request.debt.administrativeFee" class="text-primary form-control"
+                placeholder="Administrative Fees" />
+              <div ng-messages="vm.liabilityform.administrativeFee.$error" ng-show="vm.liabilityform.administrativeFee.$touched && vm.liabilityform.administrativeFee.$invalid"
+                class="help-block">
+                <div ng-message="required">Administrative Fee is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="legalFee" name="legalFee" ng-currency data-ng-model="vm.request.debt.legalFee" class="text-primary form-control"
+                placeholder="Legal Fees" />
+              <div ng-messages="vm.liabilityform.legalFee.$error" ng-show="vm.liabilityform.legalFee.$touched && vm.liabilityform.legalFee.$invalid"
+                class="help-block">
+                <div ng-message="required">Legal Fee is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="interest" name="interest" ng-currency data-ng-model="vm.request.debt.interest" class="text-primary form-control"
+                placeholder="Interest" />
+              <div ng-messages="vm.liabilityform.interest.$error" ng-show="vm.liabilityform.interest.$touched && vm.liabilityform.interest.$invalid"
+                class="help-block">
+                <div ng-message="required">Interest is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="tax" name="tax" ng-currency data-ng-model="vm.request.debt.tax" class="text-primary form-control" placeholder="Tax"
+              />
+              <div ng-messages="vm.liabilityform.tax.$error" ng-show="vm.liabilityform.tax.$touched && vm.liabilityform.tax.$invalid" class="help-block">
+                <div ng-message="required">Tax is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <div class="form-group" id="classification-group" name="classification-group" ng-class="{ 'has-error': (vm.liabilityform.referenceNo.$touched && vm.liabilityform.referenceNo.$invalid) || (vm.liabilityform.assetNo.$touched && vm.liabilityform.assetNo.$invalid) || (vm.liabilityform.classification.$touched && vm.liabilityform.classification.$invalid) }"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+        <label class="col-sm-3 control-label">Debt Classification</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-4">
+              <input type="text" id="classification" name="classification" data-ng-model="vm.request.debt.classification" ng-minlength="2"
+                ng-maxlength="10" required class="text-primary form-control" placeholder="Classification" validate-on="blur"
+                clear-on="focus" />
+
+              <div ng-messages="vm.liabilityform.classification.$error" ng-show="vm.liabilityform.classification.$touched && vm.liabilityform.classification.$invalid"
+                class="help-block">
+                <div ng-message="required">Classification is required.</div>
+                <div ng-message="minlength">Your value for Classification is too short</div>
+                <div ng-message="maxlength">Your value for Classification is too long</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" id="assetNo" name="assetNo" data-ng-model="vm.request.debt.assetNo" ng-minlength="2" ng-maxlength="10"
+                class="text-primary form-control" placeholder="Asset No" validate-on="blur" clear-on="focus" />
+
+              <div ng-messages="vm.liabilityform.assetNo.$error" ng-show="vm.liabilityform.assetNo.$touched && vm.liabilityform.assetNo.$invalid"
+                class="help-block">
+                <div ng-message="minlength">Your value for Asset No is too short</div>
+                <div ng-message="maxlength">Your value for Asset No is too long</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" id="referenceNo" name="referenceNo" data-ng-model="vm.request.debt.referenceNo" ng-minlength="2" ng-maxlength="10"
+                class="text-primary form-control" placeholder="Reference No" validate-on="blur" clear-on="focus" />
+
+              <div ng-messages="vm.liabilityform.referenceNo.$error" ng-show="vm.liabilityform.referenceNo.$touched && vm.liabilityform.referenceNo.$invalid"
+                class="help-block">
+                <div ng-message="minlength">Your value for Reference No is too short</div>
+                <div ng-message="maxlength">Your value for Reference No is too long</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+
+    <fieldset>
+      <legend>Debtor Details:</legend>
+      <div class="form-group" id="debtorName-group" name="debtorName-group" ng-class="{ 'has-error': (vm.liabilityform.firstName.$touched && vm.liabilityform.firstName.$invalid) || (vm.liabilityform.lastName.$touched && vm.liabilityform.lastName.$invalid)}"
+        ng-disabled="!vm.guardSvc.authorized()">
+        <label for="debtorName" class="col-sm-3 control-label" uib-tooltip="Tooltip For DebtorName">Debtor Name</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-6">
+              <input type="text" id="firstName" name="firstName" data-ng-model="vm.debtor.firstName" ng-minlength="2" ng-maxlength="100"
+                required class="text-primary form-control" placeholder="First Name" validate-on="blur" clear-on="focus" />
+              <div ng-messages="vm.liabilityform.firstName.$error" ng-show="vm.liabilityform.firstName.$touched" class="help-block">
+                <div ng-message="required">First Name is required.</div>
+                <div ng-message="minlength">Your value for First Name is too short</div>
+                <div ng-message="maxlength">Your value for First Name is too long</div>
+              </div>
+            </div>
+            <!-- /.col-lg-6 -->
+            <div class="col-lg-6">
+              <input type="text" id="lastName" name="lastName" data-ng-model="vm.debtor.lastName" ng-minlength="2" ng-maxlength="100" required
+                class="text-primary form-control" placeholder="Last Name" validate-on="blur" clear-on="focus" />
+              <div ng-messages="vm.liabilityform.lastName.$error" ng-show="vm.liabilityform.lastName.$touched" class="help-block">
+                <div ng-message="required">Last Name is required.</div>
+                <div ng-message="minlength">Your value for Last Name is too short</div>
+                <div ng-message="maxlength">Your value for Last Name is too long</div>
+              </div>
+            </div>
+            <!-- /.col-lg-6 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <div class="form-group" id="address-group" name="address-group" ng-class="{ 'has-error': vm.liabilityform.address.$touched && vm.liabilityform.address.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+        <label for="address" class="col-sm-3 control-label" uib-tooltip="Tooltip For Address">Street Address</label>
+        <div class="col-sm-9">
+          <input type="text" id="address" name="address" data-ng-model="vm.request.debt.address" ng-minlength="2" ng-maxlength="10"
+            required class="text-primary form-control" placeholder="Street Address" validate-on="blur" clear-on="focus" />
+          <div ng-messages="vm.liabilityform.address.$error" ng-show="vm.liabilityform.address.$touched" class="help-block">
+            <div ng-message="required">Address is required.</div>
+            <div ng-message="minlength">Your value for Address is too short</div>
+            <div ng-message="maxlength">Your value for Address is too long</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group" id="cityzonecountry-group" name="cityzonecountry-group" ng-class="{ 'has-error': vm.liabilityform.city.$touched && vm.liabilityform.city.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-4">
+              <input type="text" id="city" name="city" data-ng-model="vm.request.debt.city" ng-minlength="2" ng-maxlength="10" required
+                class="text-primary form-control" placeholder="City" validate-on="blur" clear-on="focus" />
+
+              <div ng-messages="vm.liabilityform.city.$error" ng-show="vm.liabilityform.city.$touched" class="help-block">
+                <div ng-message="required">City is required.</div>
+                <div ng-message="minlength">Your value for City is too short</div>
+                <div ng-message="maxlength">Your value for City is too long</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <input type="text" id="zone" name="zone" data-ng-model="vm.request.debt.zone" ng-minlength="2" ng-maxlength="10" required
+                class="text-primary form-control" placeholder="Zone" validate-on="blur" clear-on="focus" />
+
+              <div ng-messages="vm.liabilityform.zone.$error" ng-show="vm.liabilityform.zone.$touched" class="help-block">
+                <div ng-message="required">Zone is required.</div>
+                <div ng-message="minlength">Your value for Zone is too short</div>
+                <div ng-message="maxlength">Your value for Zone is too long</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <select id="countryId" name="countryId" class="form-control" required="required" data-ng-model="vm.request.debt.dedacountryname"
+                data-ng-options="p.dedacountrynameName for p in vm.dedacountrynames">
+								</select>
+
+              <div ng-messages="vm.liabilityform.countryId.$error" ng-show="vm.liabilityform.countryId.$touched" class="help-block">
+                <div ng-message="required">CountryId is required.</div>
+                <div ng-message="minlength">Your value for CountryId is too short</div>
+                <div ng-message="maxlength">Your value for CountryId is too long</div>
+              </div>
+            </div>
+          </div>
+              <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+          <button type="button" class="btn btn-xs btn-primary pull-right">Add Debtor</button>
+          <br>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <details>
+
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Debtor Name</th>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </details>
+          </div>
+        </div>
+
+      </div>
+
+        </div>
+        <!-- /.row -->
+
+      </div>
+
+  
+
+
+    </fieldset>
+
+    <fieldset>
+      <legend>Recovery Options:</legend>
+
+      <div class="form-group" id="recovery-group" name="recovery-group" ng-class="{ 'has-error': (vm.liabilityform.referenceNo.$touched && vm.liabilityform.referenceNo.$invalid) || (vm.liabilityform.assetNo.$touched && vm.liabilityform.assetNo.$invalid) || (vm.liabilityform.classification.$touched && vm.liabilityform.classification.$invalid) }"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+        <label class="col-sm-3 control-label">Plan Options</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-4">
+              <label>
+        <input type="checkbox" id="collect" name="collect" ng-model="vm.request.debt.collect" data-tooltip="Tooltip For Collect"><span> Collect/Attempt Recover?</span></label>
+              <div ng-messages="vm.liabilityform.collect.$error" ng-show="vm.liabilityform.collect.$touched && vm.liabilityform.collect.$invalid"
+                class="help-block">
+                <div ng-message="minlength">Your value for Collect is too short</div>
+                <div ng-message="maxlength">Your value for Collect is too long</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <label>
+        <input type="checkbox" id="insertion" name="insertion" ng-model="vm.request.debt.insertion" data-tooltip="Tooltip For Insertion"><span> Publish/Big Bad Book?</span></label>
+              <div ng-messages="vm.liabilityform.insertion.$error" ng-show="vm.liabilityform.insertion.$touched && vm.liabilityform.insertion.$invalid"
+                class="help-block">
+                <div ng-message="minlength">Your value for Insertion is too short</div>
+                <div ng-message="maxlength">Your value for Insertion is too long</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <label>
+        <input type="checkbox" id="portal" name="portal" ng-model="vm.request.debt.portal" data-tooltip="Tooltip For Portal"><span> Online/List in Portal?</span></label>
+              <div ng-messages="vm.liabilityform.portal.$error" ng-show="vm.liabilityform.portal.$touched && vm.liabilityform.portal.$invalid"
+                class="help-block">
+                <div ng-message="minlength">Your value for Portal is too short</div>
+                <div ng-message="maxlength">Your value for Portal is too long</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+
+    <div class="form-group" id="notes-group" name="notes-group" ng-class="{ 'has-error': vm.liabilityform.notes.$touched && vm.liabilityform.notes.$invalid}"
+      ng-disabled="!vm.guardSvc.authorized()">
+
+
+      <label for="notes" class="col-sm-3 control-label" uib-tooltip="Tooltip For Notes">Notes</label>
+
+      <div class="col-sm-9">
+        <textarea id="notes" name="notes" data-ng-model="vm.request.debt.notes" class="text-primary form-control" cols="8" rows="3"
+          placeholder="Notes"></textarea>
+
+  
+      </div>
+    </div> 

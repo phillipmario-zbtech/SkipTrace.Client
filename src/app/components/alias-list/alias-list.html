@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <input type="text" class="form-control" id="aliasName" placeholder="Enter Alias's Name" ng-model="vm.alias.aliasName">
+  </div>
+
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <button type="button" class="btn btn-large btn-block btn-success" ng-disabled="!vm.canAdd()" ng-click="vm.addAlias()">Add Alias</button>
+  </div>
+</div>
+<div class="row">
+  <ul>
+    <li ng-repeat="alias in vm.aliases track by $index">{{alias.aliasName}}
+
+      <button type="button" class="close pull-right" data-dismiss="modal" ng-disabled="!vm.canDelete()" ng-click="vm.deleteAlias(alias)"
+        uib-tooltip="Delete this Alias">×</button>
+    </li>
+  </ul>
+</div>

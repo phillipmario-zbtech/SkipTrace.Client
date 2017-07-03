@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <input type="text" class="form-control" id="referenceName" placeholder="Enter Reference's Name" ng-model="vm.reference.referenceName">
+  </div>
+
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <button type="button" class="btn btn-large btn-block btn-success" ng-disabled="!vm.canAdd()" ng-click="vm.addReference()">Add Reference</button>
+  </div>
+</div>
+<div class="row">
+  <ul>
+    <li ng-repeat="reference in vm.references track by $index">{{reference.referenceName}}
+
+      <button type="button" class="close pull-right" data-dismiss="modal" ng-disabled="!vm.canDelete()" ng-click="vm.deleteReference(reference)"
+        uib-tooltip="Delete this Reference">×</button>
+    </li>
+  </ul>
+</div>

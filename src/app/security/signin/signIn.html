@@ -1,0 +1,42 @@
+﻿<div class="signin-container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-7">
+      <div class="panel panel-default" id="signIn" st-disable-when-busy>
+        <div class="panel-heading">
+          <strong class="">{{title}}</strong>
+
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" role="form" name="signInForm">
+            <div class="form-group">
+              <label for="userId" class="col-sm-3 control-label">Username</label>
+              <div class="col-sm-9">
+                <input type="text" id="userId" name="userId" class="form-control" ng-model="user.id" required />
+                <span class="help-block" ng-show="signInForm.userId.$error.required && signInForm.$dirty">required</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="userPassword" class="col-sm-3 control-label">Password</label>
+              <div class="col-sm-9">
+                <input type="password" id="userPassword" class="form-control" ng-model="user.password" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-9">
+                <div class="checkbox">
+                  <label class="">
+                                        <input type="checkbox" ng-model="remember" class="">Remember me
+                                    </label>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-sm" ng-disabled="signInForm.$invalid && signInForm.$dirty" ng-click="signIn()">Sign in</button>
+            <button type="reset" class="btn btn-default btn-sm">Reset</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

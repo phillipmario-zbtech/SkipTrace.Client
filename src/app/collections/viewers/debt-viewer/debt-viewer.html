@@ -1,0 +1,112 @@
+<div class="container-fluid">
+  <div class="media">
+    <a class="pull-left" href="#"></a>
+    <div class="media-body">
+      <h3> <strong>Debt Account # :</strong>
+        <span class="text-primary"> {{vm.debt.id}} </span>
+        <div class="btn-group pull-right" role="group" aria-label="Liability Options">  
+          <button type="button" ng-click="vm.openAgreementDialog()" class="btn btn-sm btn-success">Set up Agreement</button>
+          <button type="button" ng-click="vm.openInvoiceDialog()" class="btn btn-sm btn-success">Invoice Member</button>
+          <button type="button" ng-click="vm.openPaymentDialog()" class="btn btn-sm btn-success">Pay Debt</button>
+        </div>
+      </h3>
+      <p> <span class="text-muted strong">{{vm.banner.content}}</span></p>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;<strong>Financial Details</strong>
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <debt-financial-view debt="vm.debt"></debt-financial-view>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-folder-close"></i>&nbsp;<strong>Repayment Agreements</strong>
+          </h3> 
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <debt-agreements-viewer agreements="vm.debt.agreements"></debt-agreements-viewer>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-book"></i>&nbsp;<strong>Recovery Letters</strong>
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <ul>
+            <li ng-repeat="letter in vm.debt.letters">{{letter.id}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-user"></i>&nbsp;<strong>Debtors/Ownership Details</strong>
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <debt-owners-viewer owners="vm.debt.debtors"></debt-owners-viewer>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-credit-card"></i>&nbsp;<strong>Ledger/Payment History</strong>
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <debt-ledgers-viewer ledgers="vm.debt.ledgers"></debt-ledgers-viewer>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-briefcase"></i>&nbsp;<strong>Collector Assignments</strong>
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <debt-telephone-assignments-viewer assignments="vm.debt.telephoneAssignments"></debt-telephone-assignments-viewer>
+          <debt-field-assignments-viewer assignments="vm.debt.fieldAssignments"></debt-field-assignments-viewer>
+          <debt-legal-assignments-viewer assignments="vm.debt.legalAssignments"></debt-legal-assignments-viewer>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-comment"></i>&nbsp;<strong>Call History</strong>
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <debt-posts-viewer posts="vm.debt.posts"></debt-posts-viewer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

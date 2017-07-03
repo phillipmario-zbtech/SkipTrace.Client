@@ -1,0 +1,4 @@
+<div class="container-fluid">  
+  <div uib-alert ng-repeat="alert in alertService.get()" ng-class="'alert-' + (alert.type || 'warning')" 
+  close="alertService.closeAlertIdx($index)">{{alert.msg}}</div> 
+</div>

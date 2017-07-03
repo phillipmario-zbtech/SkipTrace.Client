@@ -1,0 +1,28 @@
+﻿<ul id="stUserInfo" class="nav navbar-nav navbar-right" ng-cloak st-disable-when-busy>
+  <li uib-dropdown ng-show="signedIn">
+    <a id="dDrop" uib-dropdown-toggle>
+      <!--img st-img-person="" style="width:30px" /-->
+      {{username}}
+      <span class="caret"></span>
+    </a>
+    <ul uib-dropdown-menu role="menu" aria-labelledby="dDrop">
+      <li role="menuitem">
+        <a ui-sref="manage" ng-show="signedIn">Profile</a>
+      </li>
+      <li role="menuitem">
+        <a href="" ui-sref="about">About SkipTrace</a>
+      </li>
+      <li role="separator" class="divider" ng-show="vm.guardSvc.authorized(['Administrators'])"></li>
+      <li role="menuitem">
+        <a href="" ui-sref="audit" ng-show="signedIn && vm.guardSvc.authorized(['Administrators'])">Audit Logs</a>
+      </li> 
+      <li role="separator" class="divider"></li>
+      <li role="menuitem">
+        <a href="" ng-click="signOut()" ng-show="signedIn">Sign Out</a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a ui-sref="signIn" ng-hide="signedIn">Sign In</a>
+  </li>
+</ul>

@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+
+      <!--loader-->
+      <div class="panel-body" ng-hide="vm.status.loaded">
+        <div class="text-center">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+          <h5>loading {{vm.title}}...</h5>
+        </div>
+      </div>
+      <!--filters-->
+      <div class="panel-body" ng-show="vm.status.loaded">
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <div class="input-group">
+      <input type="text" class="form-control" id="exampleInputAmount" ng-model="vm.filter" placeholder="Filter On-Hold/Suspended Members...">
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default">Go!</button>
+      </span>
+    </div>
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Member #</th>
+          <th>Member Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="member in vm.members | filter: vm.filter | filter:new_search">
+          <td>
+
+            <a ui-sref="operations.members({ id: member.id })" uib-popover-template="vm.memberView.templateUrl" popover-title="{{member.memberName}}"
+              popover-trigger="'mouseenter'" popover-placement="right">{{member.id}}</a>
+          </td>
+          <td>{{member.memberName}}
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true" uib-tooltip="Restart this Membership" ng-click="vm.restartMembership(member)"><span class="glyphicon glyphicon-retweet"></span>&nbsp;</button>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+      </div> 
+    </div>
+  </div>
+</div>
+
+
+
+
+

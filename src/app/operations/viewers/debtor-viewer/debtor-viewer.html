@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <div class="media">
+    <a class="pull-left" href="#"></a>
+    <div class="media-body">
+      <h4>
+        <span>{{vm.title}}</span>
+        <a class="btn btn-sm btn-default pull-right" href="#" ui-sref="operations.dashboard" role="button">Back</a>
+      </h4>
+      <p> <span class="text-muted">Collector Debtor Details</span></p>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-user"></i>&nbsp;Demographic Details
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <debtor-demographics-view debtor="vm.debtor"></debtor-demographics-view>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-folder-close"></i>&nbsp;Employment History
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <ul>
+            <li ng-repeat="job in vm.debtor.jobs">{{job.id}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-inbox"></i>&nbsp;Debts/Liabilities
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <ul>
+            <li ng-repeat="debt in vm.debtor.debts">
+              <a href="#" ui-sref="operations.debts({ id: debt.id })">{{debt.id}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-home"></i>&nbsp;Addresses
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          <ul>
+            <li ng-repeat="address in vm.debtor.addresses">{{address.street}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-briefcase"></i>&nbsp;Contact Methods
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+               <ul>
+            <li ng-repeat="method in vm.debtor.contactMethods">{{method.methodName}}
+            </li>
+          </ul>
+        </div>
+   
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title pull-left">
+            <i class="glyphicon glyphicon-file"></i>&nbsp;Aliases
+          </h3>
+          <!--span class="badge pull-right">7232</span-->
+          <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+          conteext
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

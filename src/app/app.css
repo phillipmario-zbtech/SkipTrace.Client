@@ -1,0 +1,390 @@
+/* CSS used here will be applied after bootstrap.css */
+
+.navbar-inverse {
+  background-color: black;
+}
+
+.navbar-brand {
+  padding: 0px;
+}
+
+.navbar-brand>img {
+  height: 100%;
+  padding: 0px;
+  width: auto;
+}
+
+a.disabled {
+  color: #AAAAAA;
+  cursor: default;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+body.splash-body {
+  /* background-color: #000; /*Default bg, similar to the background's base color*/
+  background-image: url("/assets/images/bg.jpg");
+  background-size: cover;
+  background-position: left bottom;
+  /*Positioning*/
+  background-repeat: no-repeat;
+  /*Prevent showing multiple background images*/
+}
+
+textarea {
+  resize: vertical;
+}
+
+.edit-in-place span {
+  cursor: pointer;
+}
+
+.edit-in-place input {
+  display: none;
+}
+
+.edit-in-place.active span {
+  display: none;
+}
+
+.edit-in-place.active input {
+  display: inline-block;
+}
+
+.icon {
+  float: right;
+  padding-right: 0.5em;
+}
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.thumbnail {
+  height: 200px;
+}
+
+.thumbnail img.pull-right {
+  width: 50px;
+}
+
+.panel-heading h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: normal;
+  width: 75%;
+  padding-top: 4px;
+}
+
+.media img+span.badge {
+  position: relative;
+  top: -8px;
+  left: 8px;
+}
+
+.my-drop-zone {
+  border: dotted 3px lightgray;
+}
+
+.nv-file-over {
+  border: dotted 3px red;
+}
+
+
+/* Default class applied to drop zones on over */
+
+.another-file-over-class {
+  border: dotted 3px green;
+}
+
+canvas {
+  background-color: #f3f3f3;
+  -webkit-box-shadow: 3px 3px 3px 0 #e3e3e3;
+  -moz-box-shadow: 3px 3px 3px 0 #e3e3e3;
+  box-shadow: 3px 3px 3px 0 #e3e3e3;
+  border: 1px solid #c3c3c3;
+  height: 100px;
+  margin: 6px 0 0 6px;
+}
+
+.grid {
+  width: 500px;
+  height: 250px;
+}
+
+.popover {
+  max-width: 800px;
+  /* optional max width */
+  width: intrinsic;
+  /* Safari/WebKit uses a non-standard name */
+  width: -moz-max-content;
+  /* Firefox/Gecko */
+  width: -webkit-max-content;
+  /* Chrome */
+}
+
+.select2>.select2-choice.ui-select-match {
+  /* Because of the inclusion of Bootstrap */
+  height: 29px;
+}
+
+.selectize-control>.selectize-dropdown {
+  top: 36px;
+}
+
+
+/* Some additional styling to demonstrate that append-to-body helps achieve the proper z-index layering. */
+
+.select-box {
+  background: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.alert-info.positioned {
+  margin-top: 1em;
+  position: relative;
+  z-index: 10000;
+  /* The select2 dropdown has a z-index of 9999 */
+}
+
+
+/**  AGENDA **/
+
+.agenda {
+  color: gray;
+}
+
+
+/* Dates */
+
+.agenda .agenda-date {
+  width: 170px;
+}
+
+.agenda .agenda-date .dayofmonth {
+  width: 40px;
+  font-size: 36px;
+  line-height: 36px;
+  float: left;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.agenda .agenda-date .shortdate {
+  font-size: 0.75em;
+}
+
+
+/* Times */
+
+.agenda .agenda-time {
+  width: 140px;
+}
+
+
+/* Events */
+
+.agenda .agenda-events {
+  color: gray;
+}
+
+.agenda .agenda-events .agenda-event {
+  color: gray;
+}
+
+@media (max-width: 767px) {
+  color: gray;
+}
+
+
+/**  AGENDA **/
+
+
+
+/*** call history ***/
+
+
+/* ========================================================================
+ * MESSAGES
+ * ======================================================================== */
+.message form {
+  padding: 6px 15px;
+  background-color: #FAFAFA;
+  border-bottom: 1px solid #E6EBED;
+}
+.message form .has-icon .form-control-icon {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: 0;
+  width: 34px;
+  line-height: 33px;
+  text-align: center;
+  color: #777;
+}
+.message > a {
+  position: relative;
+}
+.message .indicator {
+  text-align: center;
+}
+.message .indicator .spinner {
+  left: 26%;
+  width: 200px;
+  font-size: 13px;
+  line-height: 17px;
+  color: #999;
+}
+
+.message-wrapper {
+  position: relative;
+  padding: 0px;
+  background-color: #ffffff;
+  margin: 0px;
+}
+.message-wrapper .message-sideleft {
+  vertical-align: top !important;
+}
+.message-wrapper .message-sideleft[class*="col-"] {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.message-wrapper .message-sideright {
+  background-color: #f8f8f8;
+}
+.message-wrapper .message-sideright[class*="col-"] {
+  padding: 30px;
+}
+.message-wrapper .message-sideright .panel {
+  border-top: 1px dotted #DDD;
+  padding-top: 20px;
+}
+.message-wrapper .message-sideright .panel:first-child {
+  border-top: none;
+  padding-top: 0px;
+}
+.message-wrapper .message-sideright .panel .panel-heading {
+  border-bottom: none;
+}
+.message-wrapper .panel {
+  background-color: transparent !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.message-wrapper .panel .panel-heading, .message-wrapper .panel .panel-body {
+  background-color: transparent !important;
+}
+.message-wrapper .media .media-body {
+  font-weight: 300;
+}
+.message-wrapper .media .media-heading {
+  margin-bottom: 0px;
+}
+.message-wrapper .media small {
+  color: #999999;
+  font-weight: 400;
+}
+
+.list-message .list-group-item {
+  padding: 15px;
+  color: #999999 !important;
+  border-right: 3px solid #8CC152 !important;
+}
+.list-message .list-group-item.active {
+  background-color: #EEEEEE;
+  border-bottom: 1px solid #DDD !important;
+}
+.list-message .list-group-item.active p {
+  color: #999999 !important;
+}
+.list-message .list-group-item.active:hover, .list-message .list-group-item.active:focus, .list-message .list-group-item.active:active {
+  background-color: #EEEEEE;
+}
+.list-message .list-group-item small {
+  font-size: 12px;
+}
+.list-message .list-group-item .list-group-item-heading {
+  color: #999999 !important;
+}
+.list-message .list-group-item .list-group-item-text {
+  margin-bottom: 10px;
+}
+.list-message .list-group-item:last-child {
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  border-bottom: 1px solid #DDD !important;
+}
+.avatar{
+    width:50px;
+    height:50px;
+}
+
+
+.ui-tour-backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    fill: rgba(0, 0, 0, 0.5);
+}
+/*** call history ***/
+
+
+/**** new nuttons ***/
+.btn-sq-lg {
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.btn-sq {
+  width: 100px !important;
+  height: 100px !important;
+  font-size: 10px;
+}
+
+.btn-sq-sm {
+  width: 50px !important;
+  height: 50px !important;
+  font-size: 10px;
+}
+
+.btn-sq-xs {
+  width: 25px !important;
+  height: 25px !important;
+  padding:2px;
+}
+/******* table*********/
+.table-fixed thead {
+  width: 97%;
+}
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+/*****generic*****/
+.fixed-panel {
+  min-height: 128px;
+  max-height: 384px;
+  overflow-y: auto; 
+} 

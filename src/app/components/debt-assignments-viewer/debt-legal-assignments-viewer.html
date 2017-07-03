@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+  <div class="panel-body fixed-panel">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>
+            Legal Collector
+          </th>
+          <th>
+            Effective Date
+          </th>
+          <th>
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="assignment in vm.assignments">
+          <td>
+            <a href="#" ui-sref="collections.legalcollectors({ id: assignment.collectorId })">{{assignment.collector.employeeName}}</a>
+          </td>
+          <td>
+            {{assignment.collector.id}}
+          </td>
+          <td>
+            {{assignment.isCurrent}}
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

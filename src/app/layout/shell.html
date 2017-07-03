@@ -1,0 +1,52 @@
+<div ng-controller="ShellController as vm">
+  <header class="clearfix">
+    <div ng-include="'app/layout/header.html'"></div>
+  </header>
+  <section id="content" class="content">
+    <alerter></alerter>
+    <!-- if you don't set alert-type, all alerts will be shown -->
+    <div ui-view></div>
+  </section>
+  <div ng-include="'app/layout/footer.html'"></div>
+</div>
+
+<!--Shared Templates-->
+
+<script type="text/ng-template" id="employeePopoverSummary.html">
+  <employee-summary-view employee="employee">
+    <employee-summary-view>
+</script>
+
+<script type="text/ng-template" id="memberPopoverSummary.html">
+  <member-summary-view member="member"><member-summary-view>
+</script>
+
+<script type="text/ng-template" id="debtPopoverSummary.html">
+  <debt-summary-view debt="debt">
+    <debt-summary-view>
+</script>
+
+<script type="text/ng-template" id="debtorPopoverSummary.html">
+  <debtor-summary-view debtor="debtor">
+    <debtor-summary-view>
+</script>
+
+<script type="text/ng-template" id="collectionInvoicePopoverSummary.html">
+  <collection-invoice-summary-view invoice="invoice">
+    <collection-invoice-summary-view>
+</script>
+ 
+<script type="text/ng-template" id="saleInvoicePopoverSummary.html">
+  <sale-invoice-summary-view invoice="invoice">
+    <sale-invoice-summary-view>
+</script>
+
+<script type="text/ng-template" id="collectionPaymentPopoverSummary.html">
+  <collection-payment-summary-view payment="payment">
+    <collection-payment-summary-view>
+</script> 
+
+<script type="text/ng-template" id="salePaymentPopoverSummary.html">
+  <sale-payment-summary-view payment="payment">
+    <sale-payment-summary-view>
+</script>

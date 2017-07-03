@@ -1,0 +1,10 @@
+
+<ul uib-pager total-items="members.length" ng-model="currentPage" ng-show="members.length>0"></ul>
+<div class="list-group">
+  <a ng-repeat="member in members | offset: currentPage*itemsPerPage | limitTo: itemsPerPage" ui-sref="operationsmemberview({ memberId: member.id })"
+    class="list-group-item">  
+    <span class="badge">{{member.id}}</span>
+    <h4 class="list-group-item-heading">{{member.memberName}}</h4> 
+      <p class="list-group-item-text text-info">{{member.industryType}} </p> </a>
+</div>  
+<ul uib-pager total-items="members.length" ng-model="currentPage" ng-show="members.length>0"></ul>

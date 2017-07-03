@@ -1,0 +1,708 @@
+<div class="modal-header">
+  <h3 class="modal-title" id="modal-title">{{vm.title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+
+
+
+
+  <p>Please enter payment/receipt details</p>
+  <form ng-submit="vm.ok();vm.resetForm();" name="vm.invoiceform" class="form-horizontal" role="form" novalidate>
+    <fieldset>
+      <legend>Payment Details:</legend>
+      <div class="form-group" id="classification-group" name="classification-group" ng-class="{ 'has-error': (vm.invoiceform.receiptNo.$touched && vm.invoiceform.receiptNo.$invalid) || (vm.invoiceform.paymentMethod.$touched && vm.invoiceform.paymentMethod.$invalid) || (vm.invoiceform.transactionType.$touched && vm.invoiceform.transactionType.$invalid) }"
+        ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Payment Info</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-4">
+              <input type="text" id="receiptNo" name="receiptNo" data-ng-model="vm.invoice.receiptNo" required class="text-primary form-control"
+                ng-attr-placeholder="{{vm.receiptNo}}" validate-on="blur" clear-on="focus" />
+              <div ng-messages="vm.invoiceform.receiptNo.$error" ng-show="vm.invoiceform.receiptNo.$touched && vm.invoiceform.receiptNo.$invalid"
+                class="help-block">
+                <div ng-message="required">Receipt No is required.</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <select id="paymentMethod" name="paymentMethod" class="form-control" required data-ng-model="vm.invoice.paymentMethod" ng-change="vm.checkIsCheque()"
+                data-ng-options="paymentMethod.key as paymentMethod.value for paymentMethod in vm.invoiceMethods">
+ <option value="" disabled selected>Select Payment Method</option> 
+								</select>
+              <div ng-messages="vm.invoiceform.paymentMethod.$error" ng-show="vm.invoiceform.paymentMethod.$touched && vm.invoiceform.paymentMethod.$invalid"
+                class="help-block">
+                <div ng-message="required">Payment Method is Required</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <select id="transactionType" name="transactionType" class="form-control" required data-ng-model="vm.invoice.transactionType"
+                data-ng-options="transactionType.key as transactionType.value for transactionType in vm.transactionTypes">
+ <option value="" disabled selected>Select Transaction Type</option> 
+								</select>
+              <div ng-messages="vm.invoiceform.transactionType.$error" ng-show="vm.invoiceform.transactionType.$touched && vm.invoiceform.transactionType.$invalid"
+                class="help-block">
+                <div ng-message="required">Transaction Type is Required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group" id="amounts-group" name="amounts-group" ng-class="{ 'has-error': (vm.invoiceform.receiptNo.$touched && vm.invoiceform.receiptNo.$invalid) || (vm.invoiceform.amount.$touched && vm.invoiceform.amount.$invalid)}"
+        ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Transaction Details</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="text" id="amount" name="amount" required ng-currency data-ng-model="vm.invoice.amount" class="text-primary form-control"
+                  placeholder="Payment Amount" />
+                <span class="input-group-btn"> <button type="button" class="btn btn-success">Calculate</button> </span>
+              </div>
+              <div ng-messages="vm.invoiceform.amount.$error" ng-show="vm.invoiceform.amount.$touched && vm.invoiceform.amount.$invalid"
+                class="help-block">
+                <div ng-message="required">Payment Amount is required.</div>
+              </div>
+
+
+            </div>
+            <!-- /.col-lg-6 -->
+            <div class="col-lg-6">
+              <select id="collectorId" name="collectorId" class="form-control" required data-ng-model="vm.invoice.collectorId" data-ng-options="collector.id as collector.name for collector in vm.collectors">
+ <option value="" disabled selected>Select Collector</option> 
+								</select>
+              <div ng-messages="vm.invoiceform.collectorId.$error" ng-show="vm.invoiceform.collectorId.$touched && vm.invoiceform.collectorId.$invalid"
+                class="help-block">
+                <div ng-message="required">Collector is Required</div>
+              </div>
+            </div>
+            <!-- /.col-lg-6 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+      <div class="form-group" id="charges-group" name="charges-group" ng-class="{ 'has-error': (vm.invoiceform.administrativeFee.$touched && vm.invoiceform.administrativeFee.$invalid) ||
+ (vm.invoiceform.legalFee.$touched && vm.invoiceform.legalFee.$invalid) || 
+ (vm.invoiceform.interest.$touched && vm.invoiceform.interest.$invalid) ||
+ (vm.invoiceform.tax.$touched && vm.invoiceform.tax.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Charges</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <input type="text" id="administrativeFee" name="administrativeFee" ng-currency data-ng-model="vm.invoice.administrativeFee"
+                class="text-primary form-control" placeholder="Administrative Fees" />
+              <div ng-messages="vm.invoiceform.administrativeFee.$error" ng-show="vm.invoiceform.administrativeFee.$touched && vm.invoiceform.administrativeFee.$invalid"
+                class="help-block">
+                <div ng-message="required">Administrative Fee is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="legalFee" name="legalFee" ng-currency data-ng-model="vm.invoice.legalFee" class="text-primary form-control"
+                placeholder="Legal Fees" />
+              <div ng-messages="vm.invoiceform.legalFee.$error" ng-show="vm.invoiceform.legalFee.$touched && vm.invoiceform.legalFee.$invalid"
+                class="help-block">
+                <div ng-message="required">Legal Fee is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="interest" name="interest" ng-currency data-ng-model="vm.invoice.interest" class="text-primary form-control"
+                placeholder="Interest" />
+              <div ng-messages="vm.invoiceform.interest.$error" ng-show="vm.invoiceform.interest.$touched && vm.invoiceform.interest.$invalid"
+                class="help-block">
+                <div ng-message="required">Interest is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+            <div class="col-lg-3">
+              <input type="text" id="tax" name="tax" ng-currency data-ng-model="vm.invoice.tax" class="text-primary form-control" placeholder="Tax"
+              />
+              <div ng-messages="vm.invoiceform.tax.$error" ng-show="vm.invoiceform.tax.$touched && vm.invoiceform.tax.$invalid" class="help-block">
+                <div ng-message="required">Tax is required.</div>
+              </div>
+            </div>
+            <!-- /.col-lg-3 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+
+      <div class="form-group" id="payCharges-group" name="payCharges-group" ng-class="{ 'has-error': (vm.invoiceform.commission.$touched && vm.invoiceform.commission.$invalid) || (vm.invoiceform.gross.$touched && vm.invoiceform.gross.$invalid) }"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+        <label class="col-sm-3 control-label"></label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3"> </div>
+            <div class="col-lg-3"> </div>
+            <div class="col-lg-3">
+              <input type="text" id="commission" name="commission" ng-currency data-ng-model="vm.invoice.commission" class="text-primary form-control"
+                placeholder="Commission" />
+              <div ng-messages="vm.invoiceform.commission.$error" ng-show="vm.invoiceform.commission.$touched && vm.invoiceform.commission.$invalid"
+                class="help-block">
+                <div ng-message="required">Commission is required.</div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <input type="text" id="gross" name="gross" ng-currency data-ng-model="vm.invoice.gross" class="text-primary form-control"
+                placeholder="Gross" />
+              <div ng-messages="vm.invoiceform.gross.$error" ng-show="vm.invoiceform.gross.$touched && vm.invoiceform.gross.$invalid" class="help-block">
+                <div ng-message="required">Gross is required.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group" id="chequeDetails-group" name="chequeDetails-group" ng-show="vm.isCheque" ng-class="{ 'has-error': (vm.invoiceform.referenceNo.$touched && vm.invoiceform.referenceNo.$invalid) ||
+ (vm.invoiceform.accountNo.$touched && vm.invoiceform.accountNo.$invalid) || 
+ (vm.invoiceform.institution.$touched && vm.invoiceform.institution.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Cheque Details</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="input-group">
+                <input type="text" id="referenceNo" name="referenceNo" data-ng-model="vm.invoice.referenceNo" class="text-primary form-control"
+                  placeholder="Cheque No" />
+                <span class="input-group-addon">
+ <input type="checkbox" ng-model="vm.invoice.personalCheque">
+ </span>
+              </div>
+              <div ng-messages="vm.invoiceform.referenceNo.$error" ng-show="vm.invoiceform.referenceNo.$touched && vm.invoiceform.referenceNo.$invalid"
+                class="help-block">
+                <div ng-message="required">Cheque Number this is required.</div>
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <input type="text" id="accountNo" name="accountNo" data-ng-model="vm.invoice.accountNo" class="text-primary form-control"
+                placeholder="Account No" />
+              <div ng-messages="vm.invoiceform.accountNo.$error" ng-if="vm.invoiceform.accountNo.$touched && vm.invoiceform.accountNo.$invalid"
+                class="help-block">
+                <div ng-message="required">Account Number this is required.</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <input type="text" id="institution" name="institution" data-ng-model="vm.invoice.institution" class="text-primary form-control"
+                placeholder="Financial Institution" />
+              <div ng-messages="vm.invoiceform.institution.$error" ng-if="vm.invoiceform.institution.$touched && vm.invoiceform.institution.$invalid"
+                class="help-block">
+                <div ng-message="required">Legal Fee is required.</div>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group" id="payorDetails-group" name="payorDetails-group" ng-show="vm.isCheque" ng-class="{ 'has-error': (vm.invoiceform. receivedFrom.$touched && vm.invoiceform. receivedFrom.$invalid) ||
+ (vm.invoiceform. receivedFromAddress.$touched && vm.invoiceform. receivedFromAddress.$invalid) }" ng-disabled="!vm.guardSvc.authorized()">
+        <label class="col-sm-3 control-label">Payor Details</label>
+        <div class="col-sm-9">
+          <div class="row">
+            <div class="col-lg-4">
+              <input type="text" id=" receivedFrom" name=" receivedFrom" data-ng-model="vm.invoice. receivedFrom" class="text-primary form-control"
+                placeholder="Received From" />
+
+              <div ng-messages="vm.invoiceform. receivedFrom.$error" ng-show="vm.invoiceform. receivedFrom.$touched && vm.invoiceform. receivedFrom.$invalid"
+                class="help-block">
+                <div ng-message="required">Received from is required.</div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-8">
+              <input type="text" id=" receivedFromAddress" name=" receivedFromAddress" data-ng-model="vm.invoice. receivedFromAddress"
+                class="text-primary form-control" placeholder="Received from Address" />
+              <div ng-messages="vm.invoiceform. receivedFromAddress.$error" ng-show="vm.invoiceform. receivedFromAddress.$touched && vm.invoiceform. receivedFromAddress.$invalid"
+                class="help-block">
+                <div ng-message="required">Received From Address is required.</div>
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+        </div>
+      </div>
+
+
+
+
+    </fieldset>
+
+
+
+
+    <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <form ng-submit="vm.ok();vm.resetForm();" name="vm.invoiceform" class="form-horizontal" role="form" novalidate>
+      <div class="form-group" id="currencyId-group" name="currencyId-group" ng-class="{ 'has-error': vm.invoiceform.currencyId.$touched && vm.invoiceform.currencyId.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="currencyId" class="col-sm-3 control-label" uib-tooltip="Tooltip For CurrencyId">CurrencyId</label>
+
+        <div class="col-sm-9">
+
+          <select id="currencyId" name="currencyId" class="form-control" required="required" data-ng-model="vm.invoice.dedacurrencytype"
+            data-ng-options="p.dedacurrencytypeName for p in vm.dedacurrencytypes">
+								</select>
+
+
+
+          <div ng-messages="vm.invoiceform.currencyId.$error" ng-show="vm.invoiceform.currencyId.$touched" class="help-block">
+            <div ng-message="required">CurrencyId is required.</div>
+            <div ng-message="minlength">Your value for CurrencyId is too short</div>
+            <div ng-message="maxlength">Your value for CurrencyId is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="invoiceDate-group" name="invoiceDate-group" ng-class="{ 'has-error': vm.invoiceform.invoiceDate.$touched && vm.invoiceform.invoiceDate.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="invoiceDate" class="col-sm-3 control-label" uib-tooltip="Tooltip For InvoiceDate">InvoiceDate</label>
+
+        <div class="col-sm-9">
+          <input uib-datepicker-popup is-open="vm.popup1.opened" datepicker-options="vm.dateOptions" type="text" id="invoiceDate" name="invoiceDate"
+            class="form-control" date-time data-ng-model="vm.invoice.invoiceDate" view="date" auto-close="true" min-view="date"
+            format="YYYY-MM-DD">
+
+
+          <div ng-messages="vm.invoiceform.invoiceDate.$error" ng-show="vm.invoiceform.invoiceDate.$touched" class="help-block">
+            <div ng-message="required">InvoiceDate is required.</div>
+            <div ng-message="minlength">Your value for InvoiceDate is too short</div>
+            <div ng-message="maxlength">Your value for InvoiceDate is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="invoiceType-group" name="invoiceType-group" ng-class="{ 'has-error': vm.invoiceform.invoiceType.$touched && vm.invoiceform.invoiceType.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="invoiceType" class="col-sm-3 control-label" uib-tooltip="Tooltip For InvoiceType">InvoiceType</label>
+
+        <div class="col-sm-9">
+          <input type="number" min="0" step="1" id="invoiceType" name="invoiceType" data-ng-model="vm.invoice.invoiceType" class="text-primary form-control"
+            placeholder="InvoiceType" />
+
+          <div ng-messages="vm.invoiceform.invoiceType.$error" ng-show="vm.invoiceform.invoiceType.$touched" class="help-block">
+            <div ng-message="required">InvoiceType is required.</div>
+            <div ng-message="minlength">Your value for InvoiceType is too short</div>
+            <div ng-message="maxlength">Your value for InvoiceType is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="reference-group" name="reference-group" ng-class="{ 'has-error': vm.invoiceform.reference.$touched && vm.invoiceform.reference.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="reference" class="col-sm-3 control-label" uib-tooltip="Tooltip For Reference">Reference</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="reference" name="reference" data-ng-model="vm.invoice.reference" ng-minlength="2" ng-maxlength="10"
+            required class="text-primary form-control" placeholder="Reference" validate-on="blur" clear-on="focus" />
+
+          <div ng-messages="vm.invoiceform.reference.$error" ng-show="vm.invoiceform.reference.$touched" class="help-block">
+            <div ng-message="required">Reference is required.</div>
+            <div ng-message="minlength">Your value for Reference is too short</div>
+            <div ng-message="maxlength">Your value for Reference is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="notes-group" name="notes-group" ng-class="{ 'has-error': vm.invoiceform.notes.$touched && vm.invoiceform.notes.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="notes" class="col-sm-3 control-label" uib-tooltip="Tooltip For Notes">Notes</label>
+
+        <div class="col-sm-9">
+          <textarea id="notes" name="notes" data-ng-model="vm.invoice.notes" class="text-primary form-control" cols="8" rows="3" placeholder="Notes"></textarea>
+
+          <div ng-messages="vm.invoiceform.notes.$error" ng-show="vm.invoiceform.notes.$touched" class="help-block">
+            <div ng-message="required">Notes is required.</div>
+            <div ng-message="minlength">Your value for Notes is too short</div>
+            <div ng-message="maxlength">Your value for Notes is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="amount-group" name="amount-group" ng-class="{ 'has-error': vm.invoiceform.amount.$touched && vm.invoiceform.amount.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="amount" class="col-sm-3 control-label" uib-tooltip="Tooltip For Amount">Amount</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="amount" name="amount" ng-currency data-ng-model="vm.invoice.amount" class="text-primary form-control"
+            placeholder="Amount" />
+
+          <div ng-messages="vm.invoiceform.amount.$error" ng-show="vm.invoiceform.amount.$touched" class="help-block">
+            <div ng-message="required">Amount is required.</div>
+            <div ng-message="minlength">Your value for Amount is too short</div>
+            <div ng-message="maxlength">Your value for Amount is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="gross-group" name="gross-group" ng-class="{ 'has-error': vm.invoiceform.gross.$touched && vm.invoiceform.gross.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="gross" class="col-sm-3 control-label" uib-tooltip="Tooltip For Gross">Gross</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="gross" name="gross" ng-currency data-ng-model="vm.invoice.gross" class="text-primary form-control"
+            placeholder="Gross" />
+
+          <div ng-messages="vm.invoiceform.gross.$error" ng-show="vm.invoiceform.gross.$touched" class="help-block">
+            <div ng-message="required">Gross is required.</div>
+            <div ng-message="minlength">Your value for Gross is too short</div>
+            <div ng-message="maxlength">Your value for Gross is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="commission-group" name="commission-group" ng-class="{ 'has-error': vm.invoiceform.commission.$touched && vm.invoiceform.commission.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="commission" class="col-sm-3 control-label" uib-tooltip="Tooltip For Commission">Commission</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="commission" name="commission" ng-currency data-ng-model="vm.invoice.commission" class="text-primary form-control"
+            placeholder="Commission" />
+
+          <div ng-messages="vm.invoiceform.commission.$error" ng-show="vm.invoiceform.commission.$touched" class="help-block">
+            <div ng-message="required">Commission is required.</div>
+            <div ng-message="minlength">Your value for Commission is too short</div>
+            <div ng-message="maxlength">Your value for Commission is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="administrativeFee-group" name="administrativeFee-group" ng-class="{ 'has-error': vm.invoiceform.administrativeFee.$touched && vm.invoiceform.administrativeFee.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="administrativeFee" class="col-sm-3 control-label" uib-tooltip="Tooltip For Administrative Fee">Administrative Fee</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="administrativeFee" name="administrativeFee" ng-currency data-ng-model="vm.invoice.administrativeFee"
+            class="text-primary form-control" placeholder="Administrative Fees" />
+
+          <div ng-messages="vm.invoiceform.administrativeFee.$error" ng-show="vm.invoiceform.administrativeFee.$touched" class="help-block">
+            <div ng-message="required">Administrative Fee is required.</div>
+            <div ng-message="minlength">Your value for Administrative Fee is too short</div>
+            <div ng-message="maxlength">Your value for Administrative Fee is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="legalFee-group" name="legalFee-group" ng-class="{ 'has-error': vm.invoiceform.legalFee.$touched && vm.invoiceform.legalFee.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="legalFee" class="col-sm-3 control-label" uib-tooltip="Tooltip For LegalFee">LegalFee</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="legalFee" name="legalFee" ng-currency data-ng-model="vm.invoice.legalFee" class="text-primary form-control"
+            placeholder="Legal Fees" />
+
+          <div ng-messages="vm.invoiceform.legalFee.$error" ng-show="vm.invoiceform.legalFee.$touched" class="help-block">
+            <div ng-message="required">LegalFee is required.</div>
+            <div ng-message="minlength">Your value for LegalFee is too short</div>
+            <div ng-message="maxlength">Your value for LegalFee is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="interest-group" name="interest-group" ng-class="{ 'has-error': vm.invoiceform.interest.$touched && vm.invoiceform.interest.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="interest" class="col-sm-3 control-label" uib-tooltip="Tooltip For Interest">Interest</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="interest" name="interest" ng-currency data-ng-model="vm.invoice.interest" class="text-primary form-control"
+            placeholder="Interest" />
+
+          <div ng-messages="vm.invoiceform.interest.$error" ng-show="vm.invoiceform.interest.$touched" class="help-block">
+            <div ng-message="required">Interest is required.</div>
+            <div ng-message="minlength">Your value for Interest is too short</div>
+            <div ng-message="maxlength">Your value for Interest is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="tax-group" name="tax-group" ng-class="{ 'has-error': vm.invoiceform.tax.$touched && vm.invoiceform.tax.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="tax" class="col-sm-3 control-label" uib-tooltip="Tooltip For Tax">Tax</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="tax" name="tax" ng-currency data-ng-model="vm.invoice.tax" class="text-primary form-control" placeholder="Tax"
+          />
+
+          <div ng-messages="vm.invoiceform.tax.$error" ng-show="vm.invoiceform.tax.$touched" class="help-block">
+            <div ng-message="required">Tax is required.</div>
+            <div ng-message="minlength">Your value for Tax is too short</div>
+            <div ng-message="maxlength">Your value for Tax is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="cancellation-group" name="cancellation-group" ng-class="{ 'has-error': vm.invoiceform.cancellation.$touched && vm.invoiceform.cancellation.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="cancellation" class="col-sm-3 control-label" uib-tooltip="Tooltip For Cancellation">Cancellation</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="cancellation" name="cancellation" data-ng-model="vm.invoice.cancellation" class="text-primary form-control"
+            placeholder="Cancellation" />
+
+          <div ng-messages="vm.invoiceform.cancellation.$error" ng-show="vm.invoiceform.cancellation.$touched" class="help-block">
+            <div ng-message="required">Cancellation is required.</div>
+            <div ng-message="minlength">Your value for Cancellation is too short</div>
+            <div ng-message="maxlength">Your value for Cancellation is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="canceled-group" name="canceled-group" ng-class="{ 'has-error': vm.invoiceform.canceled.$touched && vm.invoiceform.canceled.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="canceled" class="col-sm-3 control-label" uib-tooltip="Tooltip For Canceled">Canceled</label>
+
+        <div class="col-sm-9">
+          <input type="checkbox" id="canceled" name="canceled" ng-model="vm.invoice.canceled" data-tooltip="Tooltip For Canceled">Canceled
+
+          <div ng-messages="vm.invoiceform.canceled.$error" ng-show="vm.invoiceform.canceled.$touched" class="help-block">
+            <div ng-message="required">Canceled is required.</div>
+            <div ng-message="minlength">Your value for Canceled is too short</div>
+            <div ng-message="maxlength">Your value for Canceled is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="debtId-group" name="debtId-group" ng-class="{ 'has-error': vm.invoiceform.debtId.$touched && vm.invoiceform.debtId.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="debtId" class="col-sm-3 control-label" uib-tooltip="Tooltip For DebtId">DebtId</label>
+
+        <div class="col-sm-9">
+
+          <select id="debtId" name="debtId" class="form-control" required="required" data-ng-model="vm.invoice.debt" data-ng-options="p.debtName for p in vm.debts">
+								</select>
+
+
+
+          <div ng-messages="vm.invoiceform.debtId.$error" ng-show="vm.invoiceform.debtId.$touched" class="help-block">
+            <div ng-message="required">DebtId is required.</div>
+            <div ng-message="minlength">Your value for DebtId is too short</div>
+            <div ng-message="maxlength">Your value for DebtId is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="subscriptionId-group" name="subscriptionId-group" ng-class="{ 'has-error': vm.invoiceform.subscriptionId.$touched && vm.invoiceform.subscriptionId.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="subscriptionId" class="col-sm-3 control-label" uib-tooltip="Tooltip For SubscriptionId">SubscriptionId</label>
+
+        <div class="col-sm-9">
+
+          <select id="subscriptionId" name="subscriptionId" class="form-control" required="required" data-ng-model="vm.invoice.subscription"
+            data-ng-options="p.subscriptionName for p in vm.subscriptions">
+								</select>
+
+
+
+          <div ng-messages="vm.invoiceform.subscriptionId.$error" ng-show="vm.invoiceform.subscriptionId.$touched" class="help-block">
+            <div ng-message="required">SubscriptionId is required.</div>
+            <div ng-message="minlength">Your value for SubscriptionId is too short</div>
+            <div ng-message="maxlength">Your value for SubscriptionId is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="noticeId-group" name="noticeId-group" ng-class="{ 'has-error': vm.invoiceform.noticeId.$touched && vm.invoiceform.noticeId.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="noticeId" class="col-sm-3 control-label" uib-tooltip="Tooltip For NoticeId">NoticeId</label>
+
+        <div class="col-sm-9">
+
+          <select id="noticeId" name="noticeId" class="form-control" required="required" data-ng-model="vm.invoice.notice" data-ng-options="p.noticeName for p in vm.notices">
+								</select>
+
+
+
+          <div ng-messages="vm.invoiceform.noticeId.$error" ng-show="vm.invoiceform.noticeId.$touched" class="help-block">
+            <div ng-message="required">NoticeId is required.</div>
+            <div ng-message="minlength">Your value for NoticeId is too short</div>
+            <div ng-message="maxlength">Your value for NoticeId is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="agentId-group" name="agentId-group" ng-class="{ 'has-error': vm.invoiceform.agentId.$touched && vm.invoiceform.agentId.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="agentId" class="col-sm-3 control-label" uib-tooltip="Tooltip For AgentId">AgentId</label>
+
+        <div class="col-sm-9">
+
+          <select id="agentId" name="agentId" class="form-control" required="required" data-ng-model="vm.invoice.employee" data-ng-options="p.employeeName for p in vm.employees">
+								</select>
+
+
+
+          <div ng-messages="vm.invoiceform.agentId.$error" ng-show="vm.invoiceform.agentId.$touched" class="help-block">
+            <div ng-message="required">AgentId is required.</div>
+            <div ng-message="minlength">Your value for AgentId is too short</div>
+            <div ng-message="maxlength">Your value for AgentId is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="collectorId-group" name="collectorId-group" ng-class="{ 'has-error': vm.invoiceform.collectorId.$touched && vm.invoiceform.collectorId.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="collectorId" class="col-sm-3 control-label" uib-tooltip="Tooltip For CollectorId">CollectorId</label>
+
+        <div class="col-sm-9">
+
+          <select id="collectorId" name="collectorId" class="form-control" required="required" data-ng-model="vm.invoice.employee"
+            data-ng-options="p.employeeName for p in vm.employees">
+								</select>
+
+
+
+          <div ng-messages="vm.invoiceform.collectorId.$error" ng-show="vm.invoiceform.collectorId.$touched" class="help-block">
+            <div ng-message="required">CollectorId is required.</div>
+            <div ng-message="minlength">Your value for CollectorId is too short</div>
+            <div ng-message="maxlength">Your value for CollectorId is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="status-group" name="status-group" ng-class="{ 'has-error': vm.invoiceform.status.$touched && vm.invoiceform.status.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="status" class="col-sm-3 control-label" uib-tooltip="Tooltip For Status">Status</label>
+
+        <div class="col-sm-9">
+          <input type="number" min="0" step="1" id="status" name="status" data-ng-model="vm.invoice.status" class="text-primary form-control"
+            placeholder="Status" />
+
+          <div ng-messages="vm.invoiceform.status.$error" ng-show="vm.invoiceform.status.$touched" class="help-block">
+            <div ng-message="required">Status is required.</div>
+            <div ng-message="minlength">Your value for Status is too short</div>
+            <div ng-message="maxlength">Your value for Status is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="closed-group" name="closed-group" ng-class="{ 'has-error': vm.invoiceform.closed.$touched && vm.invoiceform.closed.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="closed" class="col-sm-3 control-label" uib-tooltip="Tooltip For Closed">Closed</label>
+
+        <div class="col-sm-9">
+          <input type="checkbox" id="closed" name="closed" ng-model="vm.invoice.closed" data-tooltip="Tooltip For Closed">Closed
+
+          <div ng-messages="vm.invoiceform.closed.$error" ng-show="vm.invoiceform.closed.$touched" class="help-block">
+            <div ng-message="required">Closed is required.</div>
+            <div ng-message="minlength">Your value for Closed is too short</div>
+            <div ng-message="maxlength">Your value for Closed is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="discount-group" name="discount-group" ng-class="{ 'has-error': vm.invoiceform.discount.$touched && vm.invoiceform.discount.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="discount" class="col-sm-3 control-label" uib-tooltip="Tooltip For Discount">Discount</label>
+
+        <div class="col-sm-9">
+          <input type="number" min="0.00" step="0.01" id="discount" name="discount" data-ng-model="vm.invoice.discount" class="text-primary form-control"
+            placeholder="Discount" />
+
+          <div ng-messages="vm.invoiceform.discount.$error" ng-show="vm.invoiceform.discount.$touched" class="help-block">
+            <div ng-message="required">Discount is required.</div>
+            <div ng-message="minlength">Your value for Discount is too short</div>
+            <div ng-message="maxlength">Your value for Discount is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="balance-group" name="balance-group" ng-class="{ 'has-error': vm.invoiceform.balance.$touched && vm.invoiceform.balance.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="balance" class="col-sm-3 control-label" uib-tooltip="Tooltip For Balance">Balance</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="balance" name="balance" data-ng-model="vm.invoice.balance" class="text-primary form-control" placeholder="Balance"
+          />
+
+          <div ng-messages="vm.invoiceform.balance.$error" ng-show="vm.invoiceform.balance.$touched" class="help-block">
+            <div ng-message="required">Balance is required.</div>
+            <div ng-message="minlength">Your value for Balance is too short</div>
+            <div ng-message="maxlength">Your value for Balance is too long</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="paid-group" name="paid-group" ng-class="{ 'has-error': vm.invoiceform.paid.$touched && vm.invoiceform.paid.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="paid" class="col-sm-3 control-label" uib-tooltip="Tooltip For Paid">Paid</label>
+
+        <div class="col-sm-9">
+          <input type="text" id="paid" name="paid" data-ng-model="vm.invoice.paid" class="text-primary form-control" placeholder="Paid"
+          />
+
+          <div ng-messages="vm.invoiceform.paid.$error" ng-show="vm.invoiceform.paid.$touched" class="help-block">
+            <div ng-message="required">Paid is required.</div>
+            <div ng-message="minlength">Your value for Paid is too short</div>
+            <div ng-message="maxlength">Your value for Paid is too long</div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-md btn-primary" ng-click="vm.ok()" ng-disabled=!vm.invoiceform.$valid value="Save Invoice">Submit</button>
+  <button type="button" class="btn btn-md btn-warning" ng-click="vm.cancel()" value="Cancel Invoice">Cancel</button>
+</div>

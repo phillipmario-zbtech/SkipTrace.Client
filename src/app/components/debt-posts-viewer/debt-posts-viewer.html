@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+    <form ng-submit="vm.ok();vm.resetForm();" name="vm.debtpostform" class="form-horizontal" role="form" novalidate>
+      <div class="form-group" id="notes-group" name="notes-group" ng-class="{ 'has-error': vm.debtpostform.notes.$touched && vm.debtpostform.notes.$invalid}"
+        ng-disabled="!vm.guardSvc.authorized()">
+
+
+        <label for="notes" class="col-sm-3 control-label" uib-tooltip="Tooltip For Notes">Record all the details of phone or email conversations with this Debtor(s)</label>
+
+        <div class="col-sm-9">
+          <textarea id="notes" name="notes" data-ng-model="vm.request.debt.notes" required class="text-primary form-control" cols="8"
+            rows="3" placeholder="Notes"></textarea>
+
+          <div ng-messages="vm.debtpostform.notes.$error" ng-show="vm.debtpostform.notes.$touched && vm.debtpostform.notes.$invalid"
+            class="help-block">
+            <div ng-message="required">Call Notes are required.</div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+
+    <br>
+
+    <button type="button" class="btn btn-success pull-right">Post Call History</button>
+
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+
+
+    <div class="panel panel-default">
+      <div class="panel-body fixed-panel">
+        <ul class="media-list">
+          <li class="media" ng-repeat="post in vm.posts  | orderBy:'post.postedDate':true">
+            <div class="media-left">
+              <a href="#"> </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">{{post.postedDate | date:'dd-MMM-yyyy' }} </h4>
+
+              <blockquote>
+                <p>
+                  <span class="text-muted">{{post.message}}</span>
+
+                </p> <small><a href="#" ui-sref="collections.collectors({ id: post.collector.id })">{{post.collector.employeeName}}</a> <cite>{{post.employee.jobTitle}}</cite></small>
+
+              </blockquote>
+
+
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

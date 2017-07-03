@@ -1,0 +1,36 @@
+<form class="form" role="form" name="quickNoteForm" st-disable-when-busy>
+  <div class="row">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="vm.debtId" st-async-validators="{'unique': vm.checkDebtExists}" id="debtId"
+            placeholder="Debt #" required />
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+      <div class="form-group">
+        <span> 
+        <a href="#" ng-hide="(quickNoteForm.$pristine) || (quickNoteForm.$invalid && quickNoteForm.$dirty)">View Feedback History</a>
+      </span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="form-group">
+
+        <textarea name="inputQuickNote" id="inputQuickNote" class="form-control" rows="3" required="required" placeholder="Type Debt Notes/Feedback"
+          ng-disabled="(quickNoteForm.$pristine) || (quickNoteForm.$invalid && quickNoteForm.$dirty)"></textarea>
+
+      </div>
+      <div class="form-group"> 
+        <button type="button" ng-click="vm.postFeedbackNow()" ng-model="vm.debtFeedback.message" ng-disabled="(quickNoteForm.$pristine) || (quickNoteForm.$invalid && quickNoteForm.$dirty)"
+          class="btn btn-md btn-block btn-warning">Post Feedback</button> 
+      </div>
+    </div>
+  </div>
+
+</form>

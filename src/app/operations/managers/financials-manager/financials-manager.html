@@ -1,0 +1,122 @@
+<uib-tabset active="0" type="tabs" vertical="false" justified="false">
+  <uib-tab heading="Sales" index="0" active="tab.active" disable="tab.disabled" select="tabSelected()" deselect="tabDeselected()">
+    <uib-tab-heading>
+      <i class="glyphicon glyphicon-briefcase"></i> Sale Transactions
+    </uib-tab-heading>
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Outstanding Sale Invoices</h3>
+          </div>
+          <div class="panel-body">
+            <outstanding-sale-invoices-viewer></outstanding-sale-invoices-viewer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Unverified Sale Payments</h3>
+          </div>
+          <div class="panel-body">
+            <unverified-sale-payments-viewer></unverified-sale-payments-viewer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Unposted Sale Payments</h3>
+          </div>
+          <div class="panel-body">
+            <unposted-sale-payments-viewer></unposted-sale-payments-viewer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Uncleared Sale Payments</h3>
+          </div>
+          <div class="panel-body">
+            <uncleared-sale-payments-viewer></uncleared-sale-payments-viewer>
+          </div>
+        </div>
+      </div>
+    </div>
+  </uib-tab>
+  <uib-tab heading="Collections" index="1" active="tab.active" disable="tab.disabled" select="tabSelected()" deselect="tabDeselected()">
+    <uib-tab-heading>
+      <i class="glyphicon glyphicon-credit-card"></i> Collection Transactions
+    </uib-tab-heading>
+    <br>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Outstanding Collection Invoices</h3>
+          </div>
+          <div class="panel-body">
+            <outstanding-collection-invoices-viewer></outstanding-collection-invoices-viewer>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Unverified Collection Payments</h3>
+          </div>
+          <div class="panel-body">
+            <unverified-collection-payments-viewer></unverified-collection-payments-viewer>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Unposted Collection Payments</h3>
+          </div>
+          <div class="panel-body">
+            <unposted-collection-payments-viewer></unposted-collection-payments-viewer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Uncleared Collection Payments</h3>
+          </div>
+          <div class="panel-body">
+            <uncleared-collection-payments-viewer></uncleared-collection-payments-viewer>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </uib-tab>
+
+</uib-tabset>

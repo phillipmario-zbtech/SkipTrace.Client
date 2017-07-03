@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <input type="text" class="form-control" id="debtorAddressName" placeholder="Enter DebtorAddress's Name" ng-model="vm.debtorAddress.debtorAddressName">
+  </div>
+
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <button type="button" class="btn btn-large btn-block btn-success" ng-disabled="!vm.canAdd()" ng-click="vm.addDebtorAddress()">Add DebtorAddress</button>
+  </div>
+</div>
+<div class="row">
+  <ul>
+    <li ng-repeat="debtorAddress in vm.debtorAddresses track by $index">{{debtorAddress.debtorAddressName}}
+
+      <button type="button" class="close pull-right" data-dismiss="modal" ng-disabled="!vm.canDelete()" ng-click="vm.deleteDebtorAddress(debtorAddress)"
+        uib-tooltip="Delete this DebtorAddress">×</button>
+    </li>
+  </ul>
+</div>

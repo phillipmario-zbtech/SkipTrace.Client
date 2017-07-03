@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <div class="panel panel-warning">
+      <!--loader-->
+      <div class="panel-body" ng-hide="vm.status.loaded">
+        <div class="text-center">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+          <h5>loading filters...</h5>
+        </div>
+      </div>
+      <!--filters-->
+      <div class="panel-body" ng-show="vm.status.loaded">
+
+        <member-search search-text="vm.query.searchText"></member-search>
+        <br>
+        <member-filter available-filters="vm.options.selectableFilters" query="vm.query"></member-filter>
+        <!--authrized debug only-->
+        <h5>query:</h5>
+        <pre ng-show="vm.guardSvc.authorized()">{{vm.query | json}}</pre>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <div class="panel panel-warning">
+      <!--loader-->
+      <div class="panel-body" ng-hide="vm.status.loaded">
+        <div class="text-center">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+          <h5>loading Members...</h5>
+        </div>
+      </div>
+      <!--filters-->
+      <div class="panel-body" ng-show="vm.status.loaded">
+        <div class="row">
+
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <member-sort order-by-options="vm.options.orderByOptions" order-by="vm.query.orderBy"></member-sort>
+          </div>
+          
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            
+            <button type="button" ng-click="vm.newMember()" class="btn btn-primary  pull-right">New Member</button>
+             
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <member-search-status members="vm.members" filters="vm.currentQuery.filters" search-status="vm.status"></member-search-status>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+
+
+
+            <ul class="list-unstyled">
+              <li ng-repeat="member in vm.members">
+                <a ui-sref="operations.members({ id: member.id })" uib-popover-template="vm.memberView.templateUrl" popover-title="{{member.memberName}}"
+                  popover-trigger="'mouseenter'" popover-placement="right">{{member.memberName}}</a>
+                <p>Serviced by <a href="" ng-click="vm.filterBy('agents',member.activeSubscription.agentId)">{{member.activeSubscription.publisher.name}}</a></p>
+
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

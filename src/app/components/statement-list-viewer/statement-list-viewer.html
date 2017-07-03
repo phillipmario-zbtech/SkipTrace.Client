@@ -1,0 +1,61 @@
+ 
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="btn-group pull-right" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-sm btn-default">Add New Address</button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-body fixed-panel">
+        <div class="text-center">
+          <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+          <h5>Loading {{vm.title}}...</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="table-responsive">
+  <table class="table table-hover table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Statement #</th>
+        <th>Statement Date</th>
+        <th>Member</th>
+        <th>Invoice Amount</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="invoice in vm.invoices">
+        <td>
+          <span popover-placement="right" uib-popover-html="vm.invoicePopover" popover-title="{{vm.title}}" popover-trigger="'mouseenter'">{{invoice.id}}</span>
+
+        </td>
+            <td class="col-sm-1">
+              <p class="text-right"> {{ invoice.invoiceDate | date:'dd-MMM-yyyy'}}</p>
+        </td>
+        <td>
+          {{invoice.subscription.member.memberName | characters:25 :true }}
+          <!--input type="text" ng-model="epi.COST_PROJECTED" onkeypress="return OnlyNumeric(event);" /-->
+        </td>
+        <td>
+          {{invoice.amount | currency }}
+        </td>
+        <td>
+
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true" uib-tooltip="Cancel This Invoice" ng-click="vm.cancelSaleInvoice(invoice)"><span class="glyphicon glyphicon-ban-circle"></span>&nbsp;</button>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true" uib-tooltip="Print This Invoice" ng-click="vm.printSaleInvoice(invoice)"><span class="glyphicon glyphicon-print"></span>&nbsp;</button>
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true" uib-tooltip="Pay This Invoice" ng-click="vm.paySaleInvoice(invoice)"><span class="glyphicon glyphicon-credit-card"></span>&nbsp;</button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

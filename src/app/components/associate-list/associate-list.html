@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+    <input type="text" class="form-control" id="associateName" placeholder="Enter Associate's Name" ng-model="vm.associate.associateName">
+  </div>
+
+  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <button type="button" class="btn btn-large btn-block btn-success" ng-disabled="!vm.canAdd()" ng-click="vm.addAssociate()">Add Associate</button>
+  </div>
+</div>
+<div class="row">
+  <ul>
+    <li ng-repeat="associate in vm.associates track by $index">{{associate.associateName}}
+
+      <button type="button" class="close pull-right" data-dismiss="modal" ng-disabled="!vm.canDelete()" ng-click="vm.deleteAssociate(associate)"
+        uib-tooltip="Delete this Associate">×</button>
+    </li>
+  </ul>
+</div>

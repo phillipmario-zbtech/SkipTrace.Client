@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="container-fluid" ui-tour ui-tour-on-start="vm.onTourStart()" ui-tour-placement="bottom">
+    <div class="media">
+      <div class="media-body">
+        <h2>
+          <span>	{{vm.moduleInfo.title}}</span>
+        </h2>
+        <p> <span class="text-muted">{{vm.moduleInfo.helpText}}</span></p>
+      </div>
+    </div>
+    <hr>
+
+    <button type="button" class="btn btn-default" ng-click="vm.openCompanyDialog()">Configure New Company</button>
+    <br>
+    <a ui-sref="configuration.companies">companies</a>
+    <a ui-sref="configuration.products">Products</a>
+    <a ui-sref="configuration.employees">employees</a>
+    <hr>
+
+    <ul>
+      <li ng-repeat="company in vm.companies">
+        {{company.id}}
+      </li>
+    </ul>
+    <hr>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div ui-view></div>
+      </div>
+    </div>
+  </div>
